@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rl:ResultList xmlns:rl="http://meyton.org/2011/Schema/ResultList" xmlns:me="http://meyton.org/2011/Schema/MEXmlTypes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://meyton.org/2011/Schema/ResultList file:/tftpboot/XML/Schema/Ergebnisliste.xsd" Version="0.2.1">
+    <ResultRecord StartListID="4" StartID="13" LaneNo="6" RemainingTime="28536" TargetID="91045806">
+        <Shooter>
+            <SportPassID>670</SportPassID>
+            <FamilyName>Elpers</FamilyName>
+            <GivenName>Natalie</GivenName>
+            <Gender>M</Gender>
+            <Country>GER</Country>
+        </Shooter>
+        <MatchClass>
+            <Name>offene Klasse</Name>
+            <ID>99</ID>
+        </MatchClass>
+        <Club>
+            <Name>VSS Epe</Name>
+            <ID>46</ID>
+        </Club>
+        <Team>
+            <Name>VSS Epe</Name>
+            <ID>50</ID>
+        </Team>
+        <Discipline>
+            <Name>LG Liga</Name>
+            <ID>10510040</ID>
+        </Discipline>
+        <Total>
+            <Result>370</Result>
+            <Unit>Ring</Unit>
+        </Total>
+        <ShotNoTotal>40</ShotNoTotal>
+        <Aimings>
+            <AimingData AimingID="1">
+                <AimingShotNo>4</AimingShotNo>
+                <Series SeriesID="1">
+                    <ValueSerie>
+                        <Result>370</Result>
+                        <Unit>Ring</Unit>
+                    </ValueSerie>
+                </Series>
+                <RingFrequency Ring="0">
+                    <NoOfOccurs>1</NoOfOccurs>
+                </RingFrequency>
+                <RingFrequency Ring="10">
+                    <NoOfOccurs>2</NoOfOccurs>
+                </RingFrequency>
+                <RingFrequency Ring="9">
+                    <NoOfOccurs>1</NoOfOccurs>
+                </RingFrequency>
+                <RingFrequency Ring="8">
+                    <NoOfOccurs>1</NoOfOccurs>
+                </RingFrequency>
+                <AimingTotal>
+                    <Result>370</Result>
+                    <Unit>Ring</Unit>
+                </AimingTotal>
+                <Shot ShotID="1">
+                    <Coordinate>
+                        <CCoordinate Resolution="100">
+                            <X>120</X>
+                            <Y>-252</Y>
+                        </CCoordinate>
+                    </Coordinate>
+                    <RingValue>
+                        <Result>98</Result>
+                        <Unit>ZehntelRing</Unit>
+                    </RingValue>
+                    <TimeStamp>
+                        <DateTime>2015-12-06T15:36:24Z</DateTime>
+                        <Hundredth>69</Hundredth>
+                    </TimeStamp>
+                </Shot>
+                <Shot ShotID="2">
+                    <Coordinate>
+                        <CCoordinate Resolution="100">
+                            <X>165</X>
+                            <Y>623</Y>
+                        </CCoordinate>
+                    </Coordinate>
+                    <RingValue>
+                        <Result>84</Result>
+                        <Unit>ZehntelRing</Unit>
+                    </RingValue>
+                    <TimeStamp>
+                        <DateTime>2015-12-06T15:37:00Z</DateTime>
+                        <Hundredth>15</Hundredth>
+                    </TimeStamp>
+                </Shot>
+                <Shot ShotID="3" IsInnerTen="true">
+                    <Coordinate>
+                        <CCoordinate Resolution="100">
+                            <X>-38</X>
+                            <Y>86</Y>
+                        </CCoordinate>
+                    </Coordinate>
+                    <RingValue>
+                        <Result>106</Result>
+                        <Unit>ZehntelRing</Unit>
+                    </RingValue>
+                    <TimeStamp>
+                        <DateTime>2015-12-06T15:37:51Z</DateTime>
+                        <Hundredth>39</Hundredth>
+                    </TimeStamp>
+                </Shot>
+                <Shot ShotID="4">
+                    <Coordinate>
+                        <CCoordinate Resolution="100">
+                            <X>207</X>
+                            <Y>-2</Y>
+                        </CCoordinate>
+                    </Coordinate>
+                    <RingValue>
+                        <Result>101</Result>
+                        <Unit>ZehntelRing</Unit>
+                    </RingValue>
+                    <TimeStamp>
+                        <DateTime>2015-12-06T15:38:24Z</DateTime>
+                        <Hundredth>15</Hundredth>
+                    </TimeStamp>
+                </Shot>
+            </AimingData>
+        </Aimings>
+    </ResultRecord>
+</rl:ResultList>

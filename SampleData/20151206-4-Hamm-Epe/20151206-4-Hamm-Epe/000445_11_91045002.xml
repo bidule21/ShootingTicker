@@ -1,0 +1,587 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rl:ResultList xmlns:rl="http://meyton.org/2011/Schema/ResultList" xmlns:me="http://meyton.org/2011/Schema/MEXmlTypes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://meyton.org/2011/Schema/ResultList file:/tftpboot/XML/Schema/Ergebnisliste.xsd" Version="0.2.1">
+    <ResultRecord StartListID="4" StartID="11" LaneNo="2" RemainingTime="10890" TargetID="91045002">
+        <Shooter>
+            <SportPassID>661</SportPassID>
+            <FamilyName>Wigger</FamilyName>
+            <GivenName>Malin</GivenName>
+            <Gender>M</Gender>
+            <Country>GER</Country>
+        </Shooter>
+        <MatchClass>
+            <Name>offene Klasse</Name>
+            <ID>99</ID>
+        </MatchClass>
+        <Club>
+            <Name>VSS Epe</Name>
+            <ID>46</ID>
+        </Club>
+        <Team>
+            <Name>VSS Epe</Name>
+            <ID>50</ID>
+        </Team>
+        <Discipline>
+            <Name>LG Liga</Name>
+            <ID>10510040</ID>
+        </Discipline>
+        <Total>
+            <Result>3140</Result>
+            <Unit>Ring</Unit>
+        </Total>
+        <ShotNoTotal>40</ShotNoTotal>
+        <Aimings>
+            <AimingData AimingID="1">
+                <AimingShotNo>32</AimingShotNo>
+                <Series SeriesID="1">
+                    <ValueSerie>
+                        <Result>980</Result>
+                        <Unit>Ring</Unit>
+                    </ValueSerie>
+                </Series>
+                <Series SeriesID="2">
+                    <ValueSerie>
+                        <Result>970</Result>
+                        <Unit>Ring</Unit>
+                    </ValueSerie>
+                </Series>
+                <Series SeriesID="3">
+                    <ValueSerie>
+                        <Result>1000</Result>
+                        <Unit>Ring</Unit>
+                    </ValueSerie>
+                </Series>
+                <Series SeriesID="4">
+                    <ValueSerie>
+                        <Result>190</Result>
+                        <Unit>Ring</Unit>
+                    </ValueSerie>
+                </Series>
+                <RingFrequency Ring="0">
+                    <NoOfOccurs>24</NoOfOccurs>
+                </RingFrequency>
+                <RingFrequency Ring="10">
+                    <NoOfOccurs>26</NoOfOccurs>
+                </RingFrequency>
+                <RingFrequency Ring="9">
+                    <NoOfOccurs>6</NoOfOccurs>
+                </RingFrequency>
+                <AimingTotal>
+                    <Result>3140</Result>
+                    <Unit>Ring</Unit>
+                </AimingTotal>
+                <Shot ShotID="1" IsInnerTen="true">
+                    <Coordinate>
+                        <CCoordinate Resolution="100">
+                            <X>-193</X>
+                            <Y>-5</Y>
+                        </CCoordinate>
+                    </Coordinate>
+                    <RingValue>
+                        <Result>102</Result>
+                        <Unit>ZehntelRing</Unit>
+                    </RingValue>
+                    <TimeStamp>
+                        <DateTime>2015-12-06T15:37:10Z</DateTime>
+                        <Hundredth>1</Hundredth>
+                    </TimeStamp>
+                </Shot>
+                <Shot ShotID="2">
+                    <Coordinate>
+                        <CCoordinate Resolution="100">
+                            <X>-154</X>
+                            <Y>277</Y>
+                        </CCoordinate>
+                    </Coordinate>
+                    <RingValue>
+                        <Result>97</Result>
+                        <Unit>ZehntelRing</Unit>
+                    </RingValue>
+                    <TimeStamp>
+                        <DateTime>2015-12-06T15:38:33Z</DateTime>
+                        <Hundredth>76</Hundredth>
+                    </TimeStamp>
+                </Shot>
+                <Shot ShotID="3" IsInnerTen="true">
+                    <Coordinate>
+                        <CCoordinate Resolution="100">
+                            <X>140</X>
+                            <Y>-20</Y>
+                        </CCoordinate>
+                    </Coordinate>
+                    <RingValue>
+                        <Result>104</Result>
+                        <Unit>ZehntelRing</Unit>
+                    </RingValue>
+                    <TimeStamp>
+                        <DateTime>2015-12-06T15:39:15Z</DateTime>
+                        <Hundredth>86</Hundredth>
+                    </TimeStamp>
+                </Shot>
+                <Shot ShotID="4" IsInnerTen="true">
+                    <Coordinate>
+                        <CCoordinate Resolution="100">
+                            <X>132</X>
+                            <Y>148</Y>
+                        </CCoordinate>
+                    </Coordinate>
+                    <RingValue>
+                        <Result>102</Result>
+                        <Unit>ZehntelRing</Unit>
+                    </RingValue>
+                    <TimeStamp>
+                        <DateTime>2015-12-06T15:39:56Z</DateTime>
+                        <Hundredth>50</Hundredth>
+                    </TimeStamp>
+                </Shot>
+                <Shot ShotID="5">
+                    <Coordinate>
+                        <CCoordinate Resolution="100">
+                            <X>334</X>
+                            <Y>145</Y>
+                        </CCoordinate>
+                    </Coordinate>
+                    <RingValue>
+                        <Result>95</Result>
+                        <Unit>ZehntelRing</Unit>
+                    </RingValue>
+                    <TimeStamp>
+                        <DateTime>2015-12-06T15:40:39Z</DateTime>
+                        <Hundredth>60</Hundredth>
+                    </TimeStamp>
+                </Shot>
+                <Shot ShotID="6" IsInnerTen="true">
+                    <Coordinate>
+                        <CCoordinate Resolution="100">
+                            <X>-24</X>
+                            <Y>159</Y>
+                        </CCoordinate>
+                    </Coordinate>
+                    <RingValue>
+                        <Result>103</Result>
+                        <Unit>ZehntelRing</Unit>
+                    </RingValue>
+                    <TimeStamp>
+                        <DateTime>2015-12-06T15:41:17Z</DateTime>
+                        <Hundredth>67</Hundredth>
+                    </TimeStamp>
+                </Shot>
+                <Shot ShotID="7" IsInnerTen="true">
+                    <Coordinate>
+                        <CCoordinate Resolution="100">
+                            <X>-50</X>
+                            <Y>-136</Y>
+                        </CCoordinate>
+                    </Coordinate>
+                    <RingValue>
+                        <Result>104</Result>
+                        <Unit>ZehntelRing</Unit>
+                    </RingValue>
+                    <TimeStamp>
+                        <DateTime>2015-12-06T15:42:01Z</DateTime>
+                        <Hundredth>47</Hundredth>
+                    </TimeStamp>
+                </Shot>
+                <Shot ShotID="8" IsInnerTen="true">
+                    <Coordinate>
+                        <CCoordinate Resolution="100">
+                            <X>18</X>
+                            <Y>-45</Y>
+                        </CCoordinate>
+                    </Coordinate>
+                    <RingValue>
+                        <Result>108</Result>
+                        <Unit>ZehntelRing</Unit>
+                    </RingValue>
+                    <TimeStamp>
+                        <DateTime>2015-12-06T15:43:33Z</DateTime>
+                        <Hundredth>20</Hundredth>
+                    </TimeStamp>
+                </Shot>
+                <Shot ShotID="9" IsInnerTen="true">
+                    <Coordinate>
+                        <CCoordinate Resolution="100">
+                            <X>-50</X>
+                            <Y>176</Y>
+                        </CCoordinate>
+                    </Coordinate>
+                    <RingValue>
+                        <Result>102</Result>
+                        <Unit>ZehntelRing</Unit>
+                    </RingValue>
+                    <TimeStamp>
+                        <DateTime>2015-12-06T15:44:08Z</DateTime>
+                        <Hundredth>64</Hundredth>
+                    </TimeStamp>
+                </Shot>
+                <Shot ShotID="10" IsInnerTen="true">
+                    <Coordinate>
+                        <CCoordinate Resolution="100">
+                            <X>-167</X>
+                            <Y>-88</Y>
+                        </CCoordinate>
+                    </Coordinate>
+                    <RingValue>
+                        <Result>102</Result>
+                        <Unit>ZehntelRing</Unit>
+                    </RingValue>
+                    <TimeStamp>
+                        <DateTime>2015-12-06T15:44:53Z</DateTime>
+                        <Hundredth>81</Hundredth>
+                    </TimeStamp>
+                </Shot>
+                <Shot ShotID="11" IsInnerTen="true">
+                    <Coordinate>
+                        <CCoordinate Resolution="100">
+                            <X>-5</X>
+                            <Y>182</Y>
+                        </CCoordinate>
+                    </Coordinate>
+                    <RingValue>
+                        <Result>102</Result>
+                        <Unit>ZehntelRing</Unit>
+                    </RingValue>
+                    <TimeStamp>
+                        <DateTime>2015-12-06T15:45:38Z</DateTime>
+                        <Hundredth>39</Hundredth>
+                    </TimeStamp>
+                </Shot>
+                <Shot ShotID="12" IsInnerTen="true">
+                    <Coordinate>
+                        <CCoordinate Resolution="100">
+                            <X>-12</X>
+                            <Y>-132</Y>
+                        </CCoordinate>
+                    </Coordinate>
+                    <RingValue>
+                        <Result>104</Result>
+                        <Unit>ZehntelRing</Unit>
+                    </RingValue>
+                    <TimeStamp>
+                        <DateTime>2015-12-06T15:46:30Z</DateTime>
+                        <Hundredth>86</Hundredth>
+                    </TimeStamp>
+                </Shot>
+                <Shot ShotID="13">
+                    <Coordinate>
+                        <CCoordinate Resolution="100">
+                            <X>177</X>
+                            <Y>249</Y>
+                        </CCoordinate>
+                    </Coordinate>
+                    <RingValue>
+                        <Result>97</Result>
+                        <Unit>ZehntelRing</Unit>
+                    </RingValue>
+                    <TimeStamp>
+                        <DateTime>2015-12-06T15:47:09Z</DateTime>
+                        <Hundredth>20</Hundredth>
+                    </TimeStamp>
+                </Shot>
+                <Shot ShotID="14" IsInnerTen="true">
+                    <Coordinate>
+                        <CCoordinate Resolution="100">
+                            <X>-103</X>
+                            <Y>-39</Y>
+                        </CCoordinate>
+                    </Coordinate>
+                    <RingValue>
+                        <Result>105</Result>
+                        <Unit>ZehntelRing</Unit>
+                    </RingValue>
+                    <TimeStamp>
+                        <DateTime>2015-12-06T15:47:49Z</DateTime>
+                        <Hundredth>18</Hundredth>
+                    </TimeStamp>
+                </Shot>
+                <Shot ShotID="15" IsInnerTen="true">
+                    <Coordinate>
+                        <CCoordinate Resolution="100">
+                            <X>123</X>
+                            <Y>100</Y>
+                        </CCoordinate>
+                    </Coordinate>
+                    <RingValue>
+                        <Result>103</Result>
+                        <Unit>ZehntelRing</Unit>
+                    </RingValue>
+                    <TimeStamp>
+                        <DateTime>2015-12-06T15:48:26Z</DateTime>
+                        <Hundredth>76</Hundredth>
+                    </TimeStamp>
+                </Shot>
+                <Shot ShotID="16">
+                    <Coordinate>
+                        <CCoordinate Resolution="100">
+                            <X>181</X>
+                            <Y>146</Y>
+                        </CCoordinate>
+                    </Coordinate>
+                    <RingValue>
+                        <Result>100</Result>
+                        <Unit>ZehntelRing</Unit>
+                    </RingValue>
+                    <TimeStamp>
+                        <DateTime>2015-12-06T15:49:07Z</DateTime>
+                        <Hundredth>33</Hundredth>
+                    </TimeStamp>
+                </Shot>
+                <Shot ShotID="17">
+                    <Coordinate>
+                        <CCoordinate Resolution="100">
+                            <X>250</X>
+                            <Y>39</Y>
+                        </CCoordinate>
+                    </Coordinate>
+                    <RingValue>
+                        <Result>99</Result>
+                        <Unit>ZehntelRing</Unit>
+                    </RingValue>
+                    <TimeStamp>
+                        <DateTime>2015-12-06T15:50:58Z</DateTime>
+                        <Hundredth>58</Hundredth>
+                    </TimeStamp>
+                </Shot>
+                <Shot ShotID="18" IsInnerTen="true">
+                    <Coordinate>
+                        <CCoordinate Resolution="100">
+                            <X>153</X>
+                            <Y>2</Y>
+                        </CCoordinate>
+                    </Coordinate>
+                    <RingValue>
+                        <Result>103</Result>
+                        <Unit>ZehntelRing</Unit>
+                    </RingValue>
+                    <TimeStamp>
+                        <DateTime>2015-12-06T15:51:41Z</DateTime>
+                        <Hundredth>18</Hundredth>
+                    </TimeStamp>
+                </Shot>
+                <Shot ShotID="19">
+                    <Coordinate>
+                        <CCoordinate Resolution="100">
+                            <X>278</X>
+                            <Y>-14</Y>
+                        </CCoordinate>
+                    </Coordinate>
+                    <RingValue>
+                        <Result>98</Result>
+                        <Unit>ZehntelRing</Unit>
+                    </RingValue>
+                    <TimeStamp>
+                        <DateTime>2015-12-06T15:52:30Z</DateTime>
+                        <Hundredth>22</Hundredth>
+                    </TimeStamp>
+                </Shot>
+                <Shot ShotID="20" IsInnerTen="true">
+                    <Coordinate>
+                        <CCoordinate Resolution="100">
+                            <X>-32</X>
+                            <Y>-31</Y>
+                        </CCoordinate>
+                    </Coordinate>
+                    <RingValue>
+                        <Result>108</Result>
+                        <Unit>ZehntelRing</Unit>
+                    </RingValue>
+                    <TimeStamp>
+                        <DateTime>2015-12-06T15:53:55Z</DateTime>
+                        <Hundredth>19</Hundredth>
+                    </TimeStamp>
+                </Shot>
+                <Shot ShotID="21" IsInnerTen="true">
+                    <Coordinate>
+                        <CCoordinate Resolution="100">
+                            <X>-20</X>
+                            <Y>-27</Y>
+                        </CCoordinate>
+                    </Coordinate>
+                    <RingValue>
+                        <Result>108</Result>
+                        <Unit>ZehntelRing</Unit>
+                    </RingValue>
+                    <TimeStamp>
+                        <DateTime>2015-12-06T15:55:26Z</DateTime>
+                        <Hundredth>54</Hundredth>
+                    </TimeStamp>
+                </Shot>
+                <Shot ShotID="22" IsInnerTen="true">
+                    <Coordinate>
+                        <CCoordinate Resolution="100">
+                            <X>7</X>
+                            <Y>-46</Y>
+                        </CCoordinate>
+                    </Coordinate>
+                    <RingValue>
+                        <Result>108</Result>
+                        <Unit>ZehntelRing</Unit>
+                    </RingValue>
+                    <TimeStamp>
+                        <DateTime>2015-12-06T15:56:06Z</DateTime>
+                        <Hundredth>31</Hundredth>
+                    </TimeStamp>
+                </Shot>
+                <Shot ShotID="23" IsInnerTen="true">
+                    <Coordinate>
+                        <CCoordinate Resolution="100">
+                            <X>9</X>
+                            <Y>-7</Y>
+                        </CCoordinate>
+                    </Coordinate>
+                    <RingValue>
+                        <Result>109</Result>
+                        <Unit>ZehntelRing</Unit>
+                    </RingValue>
+                    <TimeStamp>
+                        <DateTime>2015-12-06T15:56:51Z</DateTime>
+                        <Hundredth>71</Hundredth>
+                    </TimeStamp>
+                </Shot>
+                <Shot ShotID="24" IsInnerTen="true">
+                    <Coordinate>
+                        <CCoordinate Resolution="100">
+                            <X>61</X>
+                            <Y>-70</Y>
+                        </CCoordinate>
+                    </Coordinate>
+                    <RingValue>
+                        <Result>106</Result>
+                        <Unit>ZehntelRing</Unit>
+                    </RingValue>
+                    <TimeStamp>
+                        <DateTime>2015-12-06T15:58:32Z</DateTime>
+                        <Hundredth>72</Hundredth>
+                    </TimeStamp>
+                </Shot>
+                <Shot ShotID="25" IsInnerTen="true">
+                    <Coordinate>
+                        <CCoordinate Resolution="100">
+                            <X>-151</X>
+                            <Y>-44</Y>
+                        </CCoordinate>
+                    </Coordinate>
+                    <RingValue>
+                        <Result>103</Result>
+                        <Unit>ZehntelRing</Unit>
+                    </RingValue>
+                    <TimeStamp>
+                        <DateTime>2015-12-06T15:59:14Z</DateTime>
+                        <Hundredth>52</Hundredth>
+                    </TimeStamp>
+                </Shot>
+                <Shot ShotID="26" IsInnerTen="true">
+                    <Coordinate>
+                        <CCoordinate Resolution="100">
+                            <X>-69</X>
+                            <Y>-91</Y>
+                        </CCoordinate>
+                    </Coordinate>
+                    <RingValue>
+                        <Result>105</Result>
+                        <Unit>ZehntelRing</Unit>
+                    </RingValue>
+                    <TimeStamp>
+                        <DateTime>2015-12-06T15:59:58Z</DateTime>
+                        <Hundredth>42</Hundredth>
+                    </TimeStamp>
+                </Shot>
+                <Shot ShotID="27" IsInnerTen="true">
+                    <Coordinate>
+                        <CCoordinate Resolution="100">
+                            <X>17</X>
+                            <Y>-154</Y>
+                        </CCoordinate>
+                    </Coordinate>
+                    <RingValue>
+                        <Result>103</Result>
+                        <Unit>ZehntelRing</Unit>
+                    </RingValue>
+                    <TimeStamp>
+                        <DateTime>2015-12-06T16:01:34Z</DateTime>
+                        <Hundredth>83</Hundredth>
+                    </TimeStamp>
+                </Shot>
+                <Shot ShotID="28" IsInnerTen="true">
+                    <Coordinate>
+                        <CCoordinate Resolution="100">
+                            <X>-58</X>
+                            <Y>94</Y>
+                        </CCoordinate>
+                    </Coordinate>
+                    <RingValue>
+                        <Result>105</Result>
+                        <Unit>ZehntelRing</Unit>
+                    </RingValue>
+                    <TimeStamp>
+                        <DateTime>2015-12-06T16:02:30Z</DateTime>
+                        <Hundredth>19</Hundredth>
+                    </TimeStamp>
+                </Shot>
+                <Shot ShotID="29" IsInnerTen="true">
+                    <Coordinate>
+                        <CCoordinate Resolution="100">
+                            <X>53</X>
+                            <Y>77</Y>
+                        </CCoordinate>
+                    </Coordinate>
+                    <RingValue>
+                        <Result>106</Result>
+                        <Unit>ZehntelRing</Unit>
+                    </RingValue>
+                    <TimeStamp>
+                        <DateTime>2015-12-06T16:03:29Z</DateTime>
+                        <Hundredth>46</Hundredth>
+                    </TimeStamp>
+                </Shot>
+                <Shot ShotID="30" IsInnerTen="true">
+                    <Coordinate>
+                        <CCoordinate Resolution="100">
+                            <X>-10</X>
+                            <Y>1</Y>
+                        </CCoordinate>
+                    </Coordinate>
+                    <RingValue>
+                        <Result>109</Result>
+                        <Unit>ZehntelRing</Unit>
+                    </RingValue>
+                    <TimeStamp>
+                        <DateTime>2015-12-06T16:06:15Z</DateTime>
+                        <Hundredth>55</Hundredth>
+                    </TimeStamp>
+                </Shot>
+                <Shot ShotID="31">
+                    <Coordinate>
+                        <CCoordinate Resolution="100">
+                            <X>377</X>
+                            <Y>204</Y>
+                        </CCoordinate>
+                    </Coordinate>
+                    <RingValue>
+                        <Result>92</Result>
+                        <Unit>ZehntelRing</Unit>
+                    </RingValue>
+                    <TimeStamp>
+                        <DateTime>2015-12-06T16:07:05Z</DateTime>
+                        <Hundredth>69</Hundredth>
+                    </TimeStamp>
+                </Shot>
+                <Shot ShotID="32">
+                    <Coordinate>
+                        <CCoordinate Resolution="100">
+                            <X>-54</X>
+                            <Y>-233</Y>
+                        </CCoordinate>
+                    </Coordinate>
+                    <RingValue>
+                        <Result>100</Result>
+                        <Unit>ZehntelRing</Unit>
+                    </RingValue>
+                    <TimeStamp>
+                        <DateTime>2015-12-06T16:07:49Z</DateTime>
+                        <Hundredth>1</Hundredth>
+                    </TimeStamp>
+                </Shot>
+            </AimingData>
+        </Aimings>
+    </ResultRecord>
+</rl:ResultList>

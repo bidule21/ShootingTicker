@@ -1,0 +1,39 @@
+@import "shared.css";
+
+#competitionList .competition {
+	background: #ddd;
+	box-shadow: 0 0 5px #eee;
+	display: online-block;
+	padding: 10px;
+	cursor: pointer;
+	border-radius: 2px;
+	margin-bottom: 10px;
+}
+
+#competitionList .competition:hover {
+	box-shadow: 0 0 5px #000;
+}
+
+#competitionList .competition .title {
+	width:40%;
+}
+
+#competitionList .competition .date {
+	width:20%;
+}
+
+#competitionList .competition .status {
+	width:30%;
+}
+
+#competitionList .competition div {
+	float:left;
+}
+
+.clearfix:after {
+	content: ".";
+	clear: both;
+	display: block;
+	visibility: hidden;
+	height: 0px;
+}

@@ -1,0 +1,77 @@
+@import "shared.css";
+
+.competition {
+	width: 100%;
+	text-align: center;
+}
+
+.competition .team h2 {
+	margin: 0;
+}
+
+.competition .team {
+	margin-bottom: 5px;
+}
+
+.competition .team .shooters .shooter {
+	width: 200px;
+	background: #ddd;
+	margin: 5px 10px;
+	float: left;
+	font-size: 0.9em;
+	box-shadow: 0 0 5px black;
+	border-radius: 5px;
+}
+
+.competition .team .shooters .shooter .header p {
+	padding: 2px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.competition .team .shooters .shooter .header {
+	margin: 0px;
+}
+
+.competition .team .shooters .shooter .header .number {
+	width: 11%;
+	float: left;
+}
+
+.competition .team .shooters .shooter.leading .header .number {
+	background: yellow;
+	border-top-left-radius:5px;
+}
+
+.competition .team .shooters .shooter canvas {
+	background: black;
+	width: 200px;
+	height: 200px;
+}
+
+.competition .team .shooters .shooter .footer .seriesList {
+	width: 100%;
+	table-layout: fixed;
+}
+
+.competition .team .shooters .shooter .footer .seriesList td {
+	text-align: center;
+}
+
+.competition .team .shooters .shooter .footer .result,
+.competition .team .shooters .shooter .footer .lastShot {
+	font-weight: bold;
+}
+
+.competition .team .shooters .shooter .footer .lastShot {
+	width: 50%;
+}
+
+.clearfix:after {
+	content: ".";
+	clear: both;
+	display: block;
+	visibility: hidden;
+	height: 0px;
+}

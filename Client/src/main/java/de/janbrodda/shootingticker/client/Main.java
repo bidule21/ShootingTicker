@@ -14,6 +14,9 @@ public class Main {
 		//final String filePath = "/home/jan/Dokumente/gdrive/Projekte/ShootingTicker/SampleData/15_09_23_Hamm_vs_Hamm_3/15_09_23_SG_Hamm_-_SG_Hamm_III";
 		final String filePath = "C:/tmp";
 
+		Settings s = Settings.get();
+		s.setCompetitionBasePath(filePath);
+
 		FileWatcher watcher = new FileWatcher();
 		watcher.addFileHandler(new Runnable() {
 			@Override

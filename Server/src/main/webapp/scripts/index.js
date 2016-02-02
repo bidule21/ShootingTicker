@@ -1,9 +1,25 @@
+var Settings = {
+	refreshInterval : 10000
+};
+
 function AppViewModel() {
 	var self = this;
 	self.competitions = ko.observable([]);
 	self.loaded = ko.observable(false);
 
 	self.updateView = function() {
+		self.fetchData(function() {
+			self.loaded(true);
+			ko.applyBindings(self);
+
+			setInterval(function() {
+				self.fetchData();
+			}, Settings.refreshInterval);
+
+		});
+	};
+
+	self.fetchData = function(callback) {
 		$.getJSON("/api/get", function(data) {
 			self.competitions(data.data.competitions);
 			self.competitions().forEach(function(competition) {
@@ -17,9 +33,10 @@ function AppViewModel() {
 					competition.statusText = "Kein Status verfügbar";
 				}
 			});
-			
-			self.loaded(true);
-			ko.applyBindings(self);
+
+			if (callback != null)
+				callback();
+
 		});
 	};
 

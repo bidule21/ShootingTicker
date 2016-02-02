@@ -9,10 +9,10 @@ import com.google.gson.Gson;
 public class ResponseHandler {
 	public static void setResponse(HttpServletResponse resp, Response response) {
 		resp.setContentType("application/json");
-		resp.setCharacterEncoding("ISO-8859-1");
+		resp.setCharacterEncoding("UTF-8");
 		Gson gson = new Gson();
 		try {
-			resp.getOutputStream().print(gson.toJson(response));
+			resp.getWriter().print(gson.toJson(response));
 		} catch (IOException e) {
 		}
 	}

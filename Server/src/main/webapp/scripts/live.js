@@ -2,6 +2,7 @@ var Target = {
 	settings : {
 		refreshInterval : 5000,
 		numShotsPerTarget : 5,
+		minLoadingTime : 1000,
 		winnerTargetColor : 'yellow',
 
 		innerRingRadius : 10,
@@ -47,7 +48,8 @@ var Target = {
 	},
 
 	drawShot : function(canvas, shot, lastShot) {
-		var zoomFactor = canvas.attr("data-zoom") != null ? canvas.attr("data-zoom") : 1;
+		var zoomFactor = canvas.attr("data-zoom") != null ? canvas
+				.attr("data-zoom") : 1;
 
 		var color;
 		if (!lastShot) {
@@ -62,22 +64,27 @@ var Target = {
 
 		canvas.drawArc({
 			fillStyle : color,
-			x : this.settings.canvasSize / 2 + shot.x / this.settings.originalShotScale * zoomFactor,
-			y : this.settings.canvasSize / 2 + shot.y / this.settings.originalShotScale * zoomFactor,
+			x : this.settings.canvasSize / 2 + shot.x
+					/ this.settings.originalShotScale * zoomFactor,
+			y : this.settings.canvasSize / 2 + shot.y
+					/ this.settings.originalShotScale * zoomFactor,
 			radius : this.settings.shotRadius,
 			strokeStyle : 'black',
 			strokeWidth : this.settings.ringBorder / zoomFactor,
 			scale : zoomFactor
 		});
 
-		var textColor = lastShot ? this.settings.shotnumberForegroundColor : this.settings.shotNumberBackgroundColor;
+		var textColor = lastShot ? this.settings.shotnumberForegroundColor
+				: this.settings.shotNumberBackgroundColor;
 
 		canvas.drawText({
 			fillStyle : textColor,
 			strokeStyle : 'black',
 			strokeWidth : 1,
-			x : this.settings.canvasSize / 2 + shot.x / this.settings.originalShotScale * zoomFactor,
-			y : this.settings.canvasSize / 2 + shot.y / this.settings.originalShotScale * zoomFactor,
+			x : this.settings.canvasSize / 2 + shot.x
+					/ this.settings.originalShotScale * zoomFactor,
+			y : this.settings.canvasSize / 2 + shot.y
+					/ this.settings.originalShotScale * zoomFactor,
 			fontSize : this.settings.shotNumberFontSize * zoomFactor,
 			fontFamily : 'Arial',
 			text : shot.num
@@ -95,7 +102,8 @@ var Target = {
 	},
 
 	drawRing : function(canvas, number) {
-		var zoomFactor = canvas.attr("data-zoom") != null ? canvas.attr("data-zoom") : 1;
+		var zoomFactor = canvas.attr("data-zoom") != null ? canvas
+				.attr("data-zoom") : 1;
 		var color;
 		if (number < this.settings.highRingNumber) {
 			color = this.settings.lowRingColor;
@@ -103,7 +111,8 @@ var Target = {
 			color = this.settings.highRingColor;
 		}
 
-		var radius = number == 10 ? this.settings.innerRingRadius : this.settings.ringRadius * (10 - number);
+		var radius = number == 10 ? this.settings.innerRingRadius
+				: this.settings.ringRadius * (10 - number);
 
 		canvas.drawArc({
 			fillStyle : color,
@@ -132,9 +141,15 @@ function AppViewModel() {
 	var self = this;
 	self.competition = ko.observable();
 	self.init = false;
+
+	self.loadingTimeOver = ko.observable(false);
 	self.loaded = ko.computed(function() {
-		var competition = self.competition();
-		return competition > "";
+		return self.loadingTimeOver() && self.competition() != null;
+	});
+	self.active = ko.computed(function() {
+		return self.competition() != null
+				&& self.competition().teams[0] != null
+				&& self.competition().teams[0].shooters[0] != null;
 	});
 
 	// Init the ViewModel. Only called on first Load!
@@ -164,9 +179,11 @@ function AppViewModel() {
 	// Fetch new Data. Returns without executing the Callback when no new Data
 	// is available
 	self.fetchData = function(callback) {
-		var timestamp = this.competition() != null ? this.competition().timestamp : 0;
+		var timestamp = this.competition() != null ? this.competition().timestamp
+				: 0;
 
-		$.getJSON("/api/get/" + competitionId + "?t=" + timestamp, function(data) {
+		$.getJSON("/api/get/" + competitionId + "?t=" + timestamp, function(
+				data) {
 			if (data == null)
 				return;
 
@@ -192,7 +209,8 @@ function AppViewModel() {
 	self.drawShooter = function(shooter) {
 		var canvas = $("#target_" + shooter.laneNumber);
 
-		var shotList = shooter.shots.length >= self.competition().numShots ? shooter.shots : shooter.shots.slice(0 - Target.settings.numShotsPerTarget);
+		var shotList = shooter.shots.length >= self.competition().numShots ? shooter.shots
+				: shooter.shots.slice(0 - Target.settings.numShotsPerTarget);
 
 		var maxCoordinate = 0;
 		shotList.forEach(function(shot) {
@@ -224,4 +242,7 @@ function AppViewModel() {
 }
 
 var model = new AppViewModel();
+setTimeout(function() {
+	model.loadingTimeOver(true);
+}, Target.settings.minLoadingTime);
 model.initView();

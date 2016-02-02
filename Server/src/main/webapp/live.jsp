@@ -5,15 +5,11 @@
 <%
 	long competitionId = 0;
 	try {
-		competitionId = Long.parseLong(request.getPathInfo().substring(
-				1));
+		competitionId = Long.parseLong(request.getPathInfo().substring(1));
 	} catch (NumberFormatException e) {
 	}
 
-	Competition competition = Database
-			.getCompetitionById(competitionId);
-	String pageTitle = competition.teams.get(0).name + " : "
-			+ competition.teams.get(1).name;
+	Competition competition = Database.getCompetitionById(competitionId);
 %>
 <!DOCTYPE html>
 <html>
@@ -26,15 +22,25 @@
 <%=competitionId%>
 	;
 </script>
-<title><%=pageTitle%> | ShootingTicker</title>
+<title><%=competition.name%> | ShootingTicker</title>
 </head>
 
 <body>
 
 	<!-- <div id="loading" data-bind="style: { 'opacity': !loaded() ? 100 : 0 }"></div> -->
 
-	<div id="loading" data-bind="visible: !loaded()">
-		<div id="message"></div>
+	<div id="loading" data-bind="visible: (!loaded() || !active())">
+
+		<div id="text_loading" class="message"
+			data-bind="visible: (loaded() && !active())">
+			<img src="/images/loading.gif"> <br> <br>Der Wettkampf
+			hat noch nicht begonnen.<br>Die Seite aktualisiert automatisch..
+		</div>
+
+		<div id="text_loading" class="message" data-bind="visible: !loaded()">
+			<img src="/images/loading.gif"> <br> <br>Der
+			Wettkampf wird geladen.<br> Bite noch einen Moment Geduld..
+		</div>
 	</div>
 
 	<div id="main">

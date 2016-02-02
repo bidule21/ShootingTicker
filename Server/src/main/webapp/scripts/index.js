@@ -1,15 +1,19 @@
 var Settings = {
-	refreshInterval : 10000
+	refreshInterval : 10000,
+	minLoadingTime : 800
 };
 
 function AppViewModel() {
 	var self = this;
 	self.competitions = ko.observable([]);
-	self.loaded = ko.observable(false);
+	self.loadingTimeOver = ko.observable(false);
+	self.loaded = ko.computed(function() {
+		return self.loadingTimeOver()
+				&& self.competitions() != null;
+	});
 
 	self.updateView = function() {
 		self.fetchData(function() {
-			self.loaded(true);
 			ko.applyBindings(self);
 
 			setInterval(function() {
@@ -45,4 +49,7 @@ function AppViewModel() {
 	};
 }
 var model = new AppViewModel();
+setTimeout(function() {
+	model.loadingTimeOver(true);
+}, Settings.minLoadingTime);
 model.updateView();

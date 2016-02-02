@@ -8,7 +8,7 @@ p {
 }
 
 #loading {
-	background: #fff;
+	background: #eee;
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -17,8 +17,13 @@ p {
 	transition: opacity 2s linear;
 }
 
-#loading #message {
-	
+#loading .message {
+	background:#eee;
+	position: fixed;
+	width:100%;
+	text-align:center;
+	font-weight:bold;
+	top:0;
 }
 
 #loading.hidden {

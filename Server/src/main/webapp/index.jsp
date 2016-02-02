@@ -11,7 +11,14 @@
 
 <body>
 
-	<div id="main" data-bind="visible: loaded()" style="display: none">
+	<div id="loading" data-bind="visible: !loaded()">
+		<div id="text_loading" class="message" data-bind="visible: !loaded()">
+			<img src="/images/loading.gif"> <br> <br>Wettkämpfe
+			werden geladen. <br> Bite noch einen Moment Geduld..
+		</div>
+	</div>
+
+	<div id="main">
 		<!-- ko if: (competitions().length == 0) -->
 		<b>Noch keine Wettkämpfe vorhanden</b>
 		<!-- /ko -->

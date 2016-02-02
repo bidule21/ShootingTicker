@@ -14,10 +14,22 @@ import com.google.gson.Gson;
 
 import de.janbrodda.shootingticker.client.files.FileUtils;
 
+/**
+ * Class for saving settings data. Get instance by calling get().
+ * Remember to call save() when you changed data.
+ */
 public class Settings {
-	private String apiUrl;
-	private String apiKey;
-	private String competitionBasePath;
+
+	public String apiUrl;
+	public String apiKey;
+
+	public String competitionBasePath;
+
+	public String proxyHost;
+	public int proxyPort = 8080;
+	public String proxyUser;
+	public String proxyPass;
+	public boolean useProxy = false;
 
 	private static Settings instance;
 	private static File settingsFile;
@@ -37,38 +49,7 @@ public class Settings {
 		}
 	}
 
-	/**
-	 * Class for saving settings data. Get instance by calling get().
-	 * Data is automatically saved when changed.
-	 */
 	private Settings() {
-	}
-
-	public void setApiKey(String apiKey) {
-		this.apiKey = apiKey;
-		save();
-	}
-
-	public void setApiUrl(String apiUrl) {
-		this.apiUrl = apiUrl;
-		save();
-	}
-
-	public void setCompetitionBasePath(String competitionBasePath) {
-		this.competitionBasePath = competitionBasePath;
-		save();
-	}
-
-	public String getApiKey() {
-		return apiKey;
-	}
-
-	public String getApiUrl() {
-		return apiUrl;
-	}
-
-	public String getCompetitionBasePath() {
-		return competitionBasePath;
 	}
 
 	public static Settings get() {
@@ -85,9 +66,13 @@ public class Settings {
 		return instance;
 	}
 
-	private void save() {
+	public void save() {
+		if (instance == null) {
+			return;
+		}
+
 		Gson gson = new Gson();
-		String settingsJson = gson.toJson(this);
+		String settingsJson = gson.toJson(instance);
 
 		try {
 			PrintWriter writer = new PrintWriter(settingsFile, settingsCharset.toString());

@@ -15,7 +15,11 @@ public class Main {
 		final String filePath = "C:/tmp";
 
 		Settings s = Settings.get();
-		s.setCompetitionBasePath(filePath);
+		s.setApiKey("test");
+
+		if (1 + 1 == 2) {
+			return;
+		}
 
 		FileWatcher watcher = new FileWatcher();
 		watcher.addFileHandler(new Runnable() {

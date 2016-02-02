@@ -1,6 +1,8 @@
 package de.janbrodda.shootingticker.client.files;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.security.AccessControlException;
 
 public class FileUtils {
@@ -18,5 +20,22 @@ public class FileUtils {
 		}
 
 		return file;
+	}
+
+	public static String getExecutableFilePath() {
+		String parentPath = "";
+		String parentPathEncoded = new File(FileUtils.class.getProtectionDomain()
+				.getCodeSource()
+				.getLocation()
+				.getPath())
+				.getParent();
+
+		try {
+			parentPath = URLDecoder.decode(parentPathEncoded, "UTF-8");
+		} catch (UnsupportedEncodingException ex) {
+			ex.printStackTrace();
+		}
+
+		return parentPath;
 	}
 }

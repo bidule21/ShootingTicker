@@ -5,13 +5,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import com.google.gson.Gson;
+
+import de.janbrodda.shootingticker.client.files.FileUtils;
 
 public class Settings {
 	private String apiUrl;
@@ -24,9 +25,15 @@ public class Settings {
 
 	static {
 		try {
-			settingsFile = new File(Settings.class.getProtectionDomain().getCodeSource().getLocation().toURI()
-					.getPath() + "/settings.json");
-		} catch (URISyntaxException ex) {
+			settingsFile = new File(FileUtils.getExecutableFilePath() + "/settings.json");
+
+			if (!settingsFile.exists()) {
+				PrintWriter writer = new PrintWriter(settingsFile, settingsCharset.toString());
+				writer.println("{}");
+				writer.close();
+			}
+		} catch (IOException ex) {
+			ex.printStackTrace();
 		}
 	}
 

@@ -1,14 +1,8 @@
 package de.janbrodda.shootingticker.server.filters;
 
-import com.googlecode.objectify.Objectify;
-import com.googlecode.objectify.ObjectifyFactory;
 import com.googlecode.objectify.ObjectifyService;
 
 import de.janbrodda.shootingticker.server.data.Competition;
-import de.janbrodda.shootingticker.server.data.Shooter;
-import de.janbrodda.shootingticker.server.data.Shot;
-import de.janbrodda.shootingticker.server.data.Team;
-
 import javax.servlet.ServletContextListener;
 import javax.servlet.ServletContextEvent;
 

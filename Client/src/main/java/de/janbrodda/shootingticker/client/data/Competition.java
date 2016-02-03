@@ -12,6 +12,7 @@ public class Competition {
 	public int remainingSeconds;
 	public int numShots;
 	public long id;
+	public long timestamp;
 	public List<Team> teams = new ArrayList<>();
 
 	@Override

@@ -24,13 +24,20 @@ public class Main {
 		s.proxyHost = "proxy";
 		s.proxyPort = 8080;
 		s.apiKey = "fdhdfdrshger";
+		s.apiUrl = "http://localhost:8080";
 		s.save();
+
+		System.out.println(a.loadSingleRemoteCompetition(5629499534213120L));
+
+		if (1 + 1 == 2) {
+			return;
+		}
 
 		System.out.println("Starting");
 		//WebRequest r = new WebRequest(WebRequest.Method.POST, "https://shootingticker.appspot.com/api/put");
 		WebRequest r = new WebRequest(WebRequest.Method.POST, "http://localhost:8080/api/put");
 
-		Competition c = new Competition();
+		Competition c = ShooterFileParser.parseCompetition(ShooterFileLister.getUniqueShooterFiles(filePath));
 		c.numShots = 40;
 		c.remainingSeconds = 0;
 		c.name = "öäüÜÄÖß";
@@ -42,9 +49,7 @@ public class Main {
 		System.out.println(r.load());
 		System.out.println("Finished");
 
-		if (1 + 1 == 2) {
-			return;
-		}
+
 
 		FileWatcher watcher = new FileWatcher();
 		watcher.addFileHandler(new Runnable() {

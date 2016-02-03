@@ -44,7 +44,7 @@ public class Main {
 		c.id = 5629499534213120L;
 
 		r.parameters.put("key", s.apiKey);
-		r.parameters.put("competition", c.toJson());
+		//r.parameters.put("competition", c.toJson());
 
 		System.out.println(r.load());
 		System.out.println("Finished");
@@ -62,7 +62,7 @@ public class Main {
 
 				Gson gson = new Gson();
 
-				System.out.println(c.toJson());
+				System.out.println(gson.toJson(c));
 			}
 		});
 		watcher.addDirectoryHandler(new Runnable() {

@@ -32,6 +32,10 @@ public class API {
 		String resultJson = request.load();
 		Response response = gson.fromJson(resultJson, Response.class);
 
+		if (response.status != Response.Status.Success) {
+			throw new RemoteApiException(response.message);
+		}
+
 		return response.data.competitions;
 	}
 
@@ -41,6 +45,23 @@ public class API {
 		String resultJson = request.load();
 		Response response = gson.fromJson(resultJson, Response.class);
 
+		if (response.status != Response.Status.Success) {
+			throw new RemoteApiException(response.message);
+		}
+
 		return response.data.competitions.get(0);
+	}
+
+	public void saveCompetition(Competition competition) {
+		WebRequest request = new WebRequest(Method.POST, settings.apiUrl + "/api/post");
+		request.parameters.put("apiKey", settings.apiKey);
+		request.parameters.put("competition", gson.toJson(competition));
+
+		String resultJson = request.load();
+		Response response = gson.fromJson(resultJson, Response.class);
+
+		if (response.status != Response.Status.Success) {
+			throw new RemoteApiException(response.message);
+		}
 	}
 }

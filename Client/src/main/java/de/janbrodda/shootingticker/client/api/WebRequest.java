@@ -32,7 +32,6 @@ public class WebRequest {
 	}
 
 	private static HttpClient CLIENT;
-	private static String USERAGENT = "hu";
 	private static int CONNECTION_TIMEOUT = 10 * 1000;
 	private static Settings settings = Settings.get();
 

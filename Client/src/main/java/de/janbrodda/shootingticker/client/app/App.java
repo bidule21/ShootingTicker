@@ -19,7 +19,6 @@ public class App {
 	private API api;
 
 	private boolean isUploading = false;
-	private List<Competition> competitions = new ArrayList<>();
 	private File selectedCompetitionFolder;
 	private Competition selectedCompetition;
 
@@ -41,6 +40,10 @@ public class App {
 			instance = new App(settings, api);
 		}
 		return instance;
+	}
+
+	public List<Competition> getRemoteCompetitions() {
+		return api.loadAllRemoteCompetitions();
 	}
 
 	public void selectCompetition(Competition competition) {

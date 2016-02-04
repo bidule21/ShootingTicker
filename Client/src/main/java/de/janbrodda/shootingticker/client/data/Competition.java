@@ -32,4 +32,9 @@ public class Competition {
 		this.remainingSeconds = remainingSeconds;
 		return this;
 	}
+	
+	public Competition withName(String name){
+		this.name = name;
+		return this;
+	}
 }

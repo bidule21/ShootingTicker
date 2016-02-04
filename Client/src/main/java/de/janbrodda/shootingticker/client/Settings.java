@@ -10,6 +10,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import com.google.gson.Gson;
 
 import de.janbrodda.shootingticker.client.files.FileUtils;
@@ -24,6 +26,8 @@ public class Settings {
 	public String apiKey;
 
 	public String competitionBasePath;
+	
+	public int minSecondsBetweenUploads = 2;
 
 	public String proxyHost;
 	public int proxyPort = 8080;
@@ -81,6 +85,11 @@ public class Settings {
 		} catch (FileNotFoundException | UnsupportedEncodingException ex) {
 			System.err.println("Can't save Settings to File.");
 		}
+	}
+	
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
 	}
 
 }

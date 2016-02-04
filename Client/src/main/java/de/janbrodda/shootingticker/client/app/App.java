@@ -18,11 +18,20 @@ public class App {
 	private Settings settings;
 	private API api;
 
-	private boolean isUploading = false;
 	private File selectedCompetitionFolder;
 	private Competition selectedCompetition;
 
-	private Thread uploadThread = new Thread();
+	private FileWatcher fileWatcher;
+	private boolean isUploading = false;
+	private int lastUploadTimestamp;
+	
+	private final Runnable uploadRunnable = new Runnable() {
+		@Override
+		public void run() {
+			System.out.println("Uploading");
+			instance.startSynchronousCompetitionUpload();
+		}
+	};
 
 	private App(Settings settings, API api) {
 		if (settings.competitionBasePath == null || settings.competitionBasePath.equals("")) {
@@ -91,51 +100,27 @@ public class App {
 			public void run() {
 				try {
 					app.stopCompetitionUpload();
-				} catch (Exception ignored) {
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
 			}
 		}));
 
-		uploadThread = new Thread() {
-			@Override
-			public void run() {
-				isUploading = true;
-				FileWatcher fileWatcher = new FileWatcher();
-				fileWatcher.watchDirectory(selectedCompetitionFolder);
-				fileWatcher.addFileHandler(new Runnable() {
-					@Override
-					public void run() {
-						app.startSynchronousCompetitionUpload();
-					}
-				});
-				while (!Thread.currentThread().isInterrupted()) {
-				}
-				fileWatcher.stopWatching();
-				interrupt();
-			}
-		};
-
-		/*new Thread(
-		new Runnable() {
-			@Override
-			public void run() {
-				FileWatcher fileWatcher = new FileWatcher();
-				fileWatcher.watchDirectory(selectedCompetitionFolder);
-				fileWatcher.addFileHandler(new Runnable() {
-					@Override
-					public void run() {
-						app.startSynchronousCompetitionUpload();
-					}
-				});
-			}
-		});*/
-		uploadThread.start();
+		isUploading = true;
+		fileWatcher = new FileWatcher(selectedCompetitionFolder);
+		uploadRunnable.run();
+		fileWatcher.addFileHandler(uploadRunnable);
 	}
 
 	private void startSynchronousCompetitionUpload() {
 		if (selectedCompetition == null || selectedCompetitionFolder == null) {
-			throw new IllegalArgumentException("Application state not correct. {" + selectedCompetition + ","
-					+ selectedCompetitionFolder);
+			throw new IllegalArgumentException(
+					"Application state not correct. {" + selectedCompetition + "," + selectedCompetitionFolder);
+		}
+
+		// Protect us from too many frequent uploads
+		if (System.currentTimeMillis() - settings.minSecondsBetweenUploads * 1000 < lastUploadTimestamp) {
+			return;
 		}
 
 		List<File> shooterFiles = ShooterFileLister.getUniqueShooterFiles(selectedCompetitionFolder);
@@ -145,8 +130,10 @@ public class App {
 	}
 
 	public boolean stopCompetitionUpload() {
-		if (!uploadThread.isInterrupted()) {
-			uploadThread.interrupt();
+		if (isUploading) {
+			if (fileWatcher != null) {
+				fileWatcher.stopWatching();
+			}
 			isUploading = false;
 			return true;
 		} else {

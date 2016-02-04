@@ -26,7 +26,7 @@ public class FileLister {
 
 		for (File foundFile : files) {
 			String foundPath = foundFile.getParent();
-			if (!foundDirs.containsKey(foundPath)){
+			if (!foundDirs.containsKey(foundPath)) {
 				foundDirs.put(foundPath, foundFile.getParentFile());
 			}
 		}
@@ -40,8 +40,9 @@ public class FileLister {
 	}
 
 	public static List<File> getFiles(File file) {
-		File[] resultArray = file.listFiles((FileFilter) FileFilterUtils.fileFileFilter());
-		return Arrays.asList(resultArray);
+		Collection<File> result = org.apache.commons.io.FileUtils.listFiles(file, new RegexFileFilter("^(.*).xml$"),
+				DirectoryFileFilter.DIRECTORY);
+		return new ArrayList<File>(result);
 	}
 
 }

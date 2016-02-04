@@ -41,12 +41,12 @@ public class Database {
 	}
 
 	public static long saveCompetition(Competition competition) {
+		Key<Competition> insertedKey = ObjectifyService.ofy().save().entity(competition).now();
+
 		if (competition.id != null) {
 			CACHE.delete(competition.id);
 		}
 		CACHE.delete(CACHE_IDENTIFIERS.COMPETITION_LIST);
-
-		Key<Competition> insertedKey = ObjectifyService.ofy().save().entity(competition).now();
 		return insertedKey.getId();
 	}
 

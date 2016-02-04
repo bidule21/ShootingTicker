@@ -32,7 +32,7 @@ public class InputServlet extends HttpServlet {
 		String competitionJson = req.getParameter("competition");
 		Response response = new Response();
 
-		if (!Settings.apiKey.equals(req.getParameter("apiKey"))) {
+		if (!Settings.apiKey.equals(req.getParameter("apikey"))) {
 			response.status = Status.Error;
 			response.message = "Wrong API Key";
 			ResponseHandler.setResponse(resp, response);

@@ -28,7 +28,7 @@ public class DeleteServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Response response = new Response();
 
-		if (!Settings.apiKey.equals(req.getParameter("key"))) {
+		if (!Settings.apiKey.equals(req.getParameter("apikey"))) {
 			response.status = Status.Error;
 			response.message = "Wrong API Key";
 			ResponseHandler.setResponse(resp, response);

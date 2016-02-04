@@ -14,7 +14,7 @@
 	<textarea name="competition" style="width:500px; height:500px"></textarea>
 	<br>	
 	API Key:
-	<input name="key" value="<%=Settings.apiKey %>">
+	<input name="apikey" value="<%=Settings.apiKey %>">
 	<br>
 	<input type="submit" value="Save">
 </form>
@@ -26,7 +26,7 @@
 	<input name="competitionId">
 	<br>
 	API Key:
-	<input name="key" value="<%=Settings.apiKey %>">
+	<input name="apikey" value="<%=Settings.apiKey %>">
 	<br>
 	<input type="submit" value="Delete">
 </form>

@@ -11,6 +11,7 @@ import de.janbrodda.shootingticker.server.data.Competition;
 
 public class Database {
 	private static MemcacheService CACHE = MemcacheServiceFactory.getMemcacheService();
+	private static boolean CACHE_READY = false;
 
 	private static enum CACHE_IDENTIFIERS {
 		COMPETITION_LIST
@@ -55,5 +56,16 @@ public class Database {
 
 		CACHE.delete(competitionId);
 		CACHE.delete(CACHE_IDENTIFIERS.COMPETITION_LIST);
+	}
+
+	public static void preloadCache() {
+		if (!CACHE_READY) {
+			List<Competition> competitions = Database.getAllCompetitions();
+			for (Competition competition : competitions) {
+				Database.getCompetitionById(competition.id);
+				System.out.println(competition);
+			}
+		}
+		CACHE_READY = true;
 	}
 }

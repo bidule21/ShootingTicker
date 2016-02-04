@@ -34,14 +34,22 @@ public class DeleteServlet extends HttpServlet {
 			ResponseHandler.setResponse(resp, response);
 			return;
 		}
+		
+		String competitionIdRaw = req.getParameter("competitionid");
 
-		Long competitionId = Long.parseLong(req.getParameter("competitionid"));
+		if (competitionIdRaw == null || "".equals(competitionIdRaw)) {
+			response.status = Status.Error;
+			response.message = "No Competition-ID found";
+			ResponseHandler.setResponse(resp, response);
+			return;
+		}
+		
+		Long competitionId = Long.parseLong(competitionIdRaw);
 		Database.deleteCompetition(competitionId);
-
+		
 		response.status = Response.Status.Success;
 		response.message = "Competition deleted";
 		response.data.put("id", competitionId);
 		ResponseHandler.setResponse(resp, response);
-
 	}
 }

@@ -10,6 +10,9 @@
 	}
 
 	Competition competition = Database.getCompetitionById(competitionId);
+	if (competition == null){
+		competition = new Competition();
+	}
 %>
 <!DOCTYPE html>
 <html>

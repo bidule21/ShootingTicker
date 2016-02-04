@@ -23,7 +23,7 @@
 <b>Delete Competition</b>
 <form action="/api/delete" method="post">
 	Competition Id:
-	<input name="competitionId">
+	<input name="competitionid">
 	<br>
 	API Key:
 	<input name="apikey" value="<%=Settings.apiKey %>">

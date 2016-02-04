@@ -12,8 +12,7 @@
 	<properties>
 		<app.id>shootingticker</app.id>
 		<app.version>1</app.version>
-		<appengine.version>1.9.31</appengine.version>
-		<!-- 2.0.9.74.v20150814 -->
+		<appengine.version>1.9.32</appengine.version>
 		<gcloud.plugin.version>2.0.9.92.v20160118</gcloud.plugin.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
@@ -49,10 +48,7 @@
 			<groupId>com.google.appengine</groupId>
 			<artifactId>appengine-api-labs</artifactId>
 			<version>${appengine.version}</version>
-			<!-- <scope>test</scope> -->
 		</dependency>
-
-
 		<dependency>
 			<groupId>com.google.appengine</groupId>
 			<artifactId>appengine-api-1.0-sdk</artifactId>
@@ -128,7 +124,6 @@
 					</webResources>
 				</configuration>
 			</plugin>
-
 			<plugin>
 				<groupId>com.google.appengine</groupId>
 				<artifactId>appengine-maven-plugin</artifactId>
@@ -136,12 +131,8 @@
 				<configuration>
 					<enableJarClasses>false</enableJarClasses>
 					<version>${app.version}</version>
-					<!-- Comment in the below snippet to bind to all IPs instead of just localhost -->
 					<address>0.0.0.0</address>
 					<port>8080</port>
-					<!-- Comment in the below snippet to enable local debugging with a remote debugger like those included with Eclipse 
-						or IntelliJ -->
-					<!-- jvmFlags> <jvmFlag>-agentlib:jdwp=transport=dt_socket,address=8000,server=y,suspend=n</jvmFlag> </jvmFlags -->
 				</configuration>
 			</plugin>
 			<plugin>

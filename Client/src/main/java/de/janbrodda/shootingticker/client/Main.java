@@ -1,13 +1,8 @@
 package de.janbrodda.shootingticker.client;
 
-import com.google.gson.Gson;
-
 import de.janbrodda.shootingticker.client.api.API;
-import de.janbrodda.shootingticker.client.api.WebRequest;
+import de.janbrodda.shootingticker.client.app.App;
 import de.janbrodda.shootingticker.client.data.Competition;
-import de.janbrodda.shootingticker.client.files.FileWatcher;
-import de.janbrodda.shootingticker.client.files.shooters.ShooterFileLister;
-import de.janbrodda.shootingticker.client.files.shooters.ShooterFileParser;
 
 
 public class Main {
@@ -25,53 +20,27 @@ public class Main {
 		s.proxyPort = 8080;
 		s.apiKey = "fdhdfdrshger";
 		s.apiUrl = "http://localhost:8080";
+		//s.competitionBasePath = "C:/Custom Apps/Github_Data/ShootingTicker/SampleData";
+		s.competitionBasePath = "C:/tmp";
 		s.save();
 
-		System.out.println(a.loadSingleRemoteCompetition(5629499534213120L));
 
-		if (1 + 1 == 2) {
-			return;
-		}
-
-		System.out.println("Starting");
-		//WebRequest r = new WebRequest(WebRequest.Method.POST, "https://shootingticker.appspot.com/api/put");
-		WebRequest r = new WebRequest(WebRequest.Method.POST, "http://localhost:8080/api/put");
-
-		Competition c = ShooterFileParser.parseCompetition(ShooterFileLister.getUniqueShooterFiles(filePath));
+		/*Competition c = ShooterFileParser.parseCompetition(ShooterFileLister.getUniqueShooterFiles(filePath));
 		c.numShots = 40;
 		c.remainingSeconds = 0;
 		c.name = "öäüÜÄÖß";
-		c.id = 5629499534213120L;
+		c.id = 5629499534213120L;*/
 
-		r.parameters.put("key", s.apiKey);
-		//r.parameters.put("competition", c.toJson());
+		App p = App.get();
+		p.selectCompetition(new Competition()
+				.withId(5629499534213120L)
+				.withNumShots(30)
+				.withRemainingSeconds(0)
+				);
+		p.selectCompetitionFolder(p.getAvailableFolders().get(0).file);
+		p.startCompetitionUpload();
+		//p.stopCompetitionUpload();
+		//p.startCompetitionUpload();
 
-		System.out.println(r.load());
-		System.out.println("Finished");
-
-
-
-		FileWatcher watcher = new FileWatcher();
-		watcher.addFileHandler(new Runnable() {
-			@Override
-			public void run() {
-				Competition c = ShooterFileParser.parseCompetition(ShooterFileLister.getUniqueShooterFiles(filePath));
-				c.remainingSeconds = 0;
-				c.numShots = 40;
-				c.id = 5629499534213120L;
-
-				Gson gson = new Gson();
-
-				System.out.println(gson.toJson(c));
-			}
-		});
-		watcher.addDirectoryHandler(new Runnable() {
-			@Override
-			public void run() {
-				System.out.println("dirs changed");
-
-			}
-		});
-		watcher.watchDirectory(filePath);
 	}
 }

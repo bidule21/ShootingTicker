@@ -35,7 +35,7 @@ public class DeleteServlet extends HttpServlet {
 			return;
 		}
 
-		Long competitionId = Long.parseLong(req.getParameter("competitionId"));
+		Long competitionId = Long.parseLong(req.getParameter("competitionid"));
 		Database.deleteCompetition(competitionId);
 
 		response.status = Response.Status.Success;

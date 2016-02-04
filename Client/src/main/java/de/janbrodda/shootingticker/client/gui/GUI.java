@@ -1,4 +1,4 @@
-package de.janbrodda.shootingticker.client;
+package de.janbrodda.shootingticker.client.gui;
 
 import java.awt.EventQueue;
 
@@ -11,7 +11,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 
-public class Application {
+public class GUI {
 
 	private JFrame frame;
 	private JTextField textField;
@@ -33,7 +33,7 @@ public class Application {
 				}
 
 				try {
-					Application window = new Application();
+					GUI window = new GUI();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -45,7 +45,7 @@ public class Application {
 	/**
 	 * Create the application.
 	 */
-	public Application() {
+	public GUI() {
 		initialize();
 	}
 

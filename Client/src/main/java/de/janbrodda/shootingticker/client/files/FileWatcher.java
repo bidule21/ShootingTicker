@@ -36,6 +36,14 @@ public class FileWatcher implements FileAlterationListener {
 		}));
 	};
 
+	public void stopWatching() {
+		try {
+			monitor.stop();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
 	private void callDirectoryHandlers() {
 		long currentActionCall = System.currentTimeMillis();
 		if (currentActionCall - lastDirectoryActionCall < 1000) {
@@ -78,15 +86,16 @@ public class FileWatcher implements FileAlterationListener {
 		}
 	}
 
-	public void watchDirectory(String directory) {
-		if (watchedDirectories.contains(directory)) {
+	public void watchDirectory(File file) {
+		if (watchedDirectories.contains(file)) {
 			throw new IllegalArgumentException("I am already watching this Directory.");
 		}
 
-		File file = FileUtils.getReadableDirectory(directory);
 		FileAlterationObserver fileAlterationObserver = new FileAlterationObserver(file);
 		fileAlterationObserver.addListener(this);
 		monitor.addObserver(fileAlterationObserver);
+
+		watchedDirectories.add(file);
 	}
 
 	@Override

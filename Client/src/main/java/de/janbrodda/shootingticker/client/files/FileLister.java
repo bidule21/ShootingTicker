@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.apache.commons.io.filefilter.DirectoryFileFilter;
 import org.apache.commons.io.filefilter.FileFilterUtils;
 import org.apache.commons.io.filefilter.RegexFileFilter;
@@ -22,25 +23,23 @@ public class FileLister {
 
 		Collection<File> files = org.apache.commons.io.FileUtils.listFiles(file, new RegexFileFilter("^(.*).xml$"),
 				DirectoryFileFilter.DIRECTORY);
-		
+
 		for (File foundFile : files) {
 			String foundPath = foundFile.getParent();
 			if (!foundDirs.containsKey(foundPath)){
-				foundDirs.put(foundPath, foundFile);
+				foundDirs.put(foundPath, foundFile.getParentFile());
 			}
 		}
 
 		return new ArrayList<File>(foundDirs.values());
 	}
 
-	public static List<File> getDirectories(String directory) {
-		File file = FileUtils.getReadableDirectory(directory);
+	public static List<File> getDirectories(File file) {
 		File[] resultArray = file.listFiles((FileFilter) FileFilterUtils.directoryFileFilter());
 		return Arrays.asList(resultArray);
 	}
 
-	public static List<File> getFiles(String directory) {
-		File file = FileUtils.getReadableDirectory(directory);
+	public static List<File> getFiles(File file) {
 		File[] resultArray = file.listFiles((FileFilter) FileFilterUtils.fileFileFilter());
 		return Arrays.asList(resultArray);
 	}

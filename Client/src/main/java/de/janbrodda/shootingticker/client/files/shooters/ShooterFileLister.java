@@ -12,19 +12,19 @@ public class ShooterFileLister {
 	protected ShooterFileLister() {
 	}
 
-	public static List<File> getUniqueShooterFiles(String directory) {
-		List<File> subDirectories = FileLister.getDirectories(directory);
+	public static List<File> getUniqueShooterFiles(File file) {
+		List<File> subDirectories = FileLister.getDirectories(file);
 		if (subDirectories.size() > 0) {
 			throw new IllegalArgumentException("The provided Directory is not in the correct Format.");
 		}
 
-		List<File> allFiles = FileLister.getFiles(directory);
+		List<File> allFiles = FileLister.getFiles(file);
 		List<File> uniqueFiles = new ArrayList<>();
 		Map<String, Integer> laneIdToFileId = new HashMap<>();
 
 		// Go through all Files and save fileId and laneId
-		for (File file : allFiles) {
-			String fileName = file.getName();
+		for (File singleFile : allFiles) {
+			String fileName = singleFile.getName();
 			String[] fileNameParts = fileName.split("_");
 			int fileId = Integer.parseInt(fileNameParts[0]);
 			String laneId = fileNameParts[2].substring(0, fileNameParts[2].length() - 4);
@@ -37,12 +37,12 @@ public class ShooterFileLister {
 		}
 
 		// Go through all Files and save newest File to output List
-		for (File file : allFiles) {
-			String fileName = file.getName();
+		for (File singleFile : allFiles) {
+			String fileName = singleFile.getName();
 			String[] fileNameParts = fileName.split("_");
 			int fileId = Integer.parseInt(fileNameParts[0]);
 			if (laneIdToFileId.containsValue(fileId)) {
-				uniqueFiles.add(file);
+				uniqueFiles.add(singleFile);
 			}
 		}
 

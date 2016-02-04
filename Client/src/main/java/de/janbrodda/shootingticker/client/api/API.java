@@ -15,6 +15,12 @@ public class API {
 	private Settings settings;
 
 	private API(Settings settings) {
+		if (settings.apiKey == null) {
+			throw new IllegalArgumentException("settings parameter -apiKey- missing");
+		} else if (settings.apiUrl == null) {
+			throw new IllegalArgumentException("settings parameter -apiUrl- missing");
+		}
+
 		this.settings = settings;
 	}
 
@@ -53,9 +59,22 @@ public class API {
 	}
 
 	public void saveCompetition(Competition competition) {
-		WebRequest request = new WebRequest(Method.POST, settings.apiUrl + "/api/post");
-		request.parameters.put("apiKey", settings.apiKey);
+		WebRequest request = new WebRequest(Method.POST, settings.apiUrl + "/api/put");
+		request.parameters.put("apikey", settings.apiKey);
 		request.parameters.put("competition", gson.toJson(competition));
+
+		String resultJson = request.load();
+		Response response = gson.fromJson(resultJson, Response.class);
+
+		if (response.status != Response.Status.Success) {
+			throw new RemoteApiException(response.message);
+		}
+	}
+
+	public void deleteCompetition(Competition Competition) {
+		WebRequest request = new WebRequest(Method.POST, settings.apiUrl + "/api/delete");
+		request.parameters.put("apikey", settings.apiKey);
+		request.parameters.put("competitionid", Competition.id + "");
 
 		String resultJson = request.load();
 		Response response = gson.fromJson(resultJson, Response.class);

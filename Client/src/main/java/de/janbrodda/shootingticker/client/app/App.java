@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.janbrodda.shootingticker.client.Settings;
+import de.janbrodda.shootingticker.client.settings.Settings;
 import de.janbrodda.shootingticker.client.api.API;
 import de.janbrodda.shootingticker.client.data.Competition;
 import de.janbrodda.shootingticker.client.files.FileLister;

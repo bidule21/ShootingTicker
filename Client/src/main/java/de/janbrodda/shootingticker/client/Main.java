@@ -1,5 +1,6 @@
 package de.janbrodda.shootingticker.client;
 
+import de.janbrodda.shootingticker.client.settings.Settings;
 import de.janbrodda.shootingticker.client.api.API;
 import de.janbrodda.shootingticker.client.app.App;
 import de.janbrodda.shootingticker.client.data.Competition;

@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.google.gson.Gson;
 
-import de.janbrodda.shootingticker.client.Settings;
+import de.janbrodda.shootingticker.client.settings.Settings;
 import de.janbrodda.shootingticker.client.api.WebRequest.Method;
 import de.janbrodda.shootingticker.client.data.Competition;
 

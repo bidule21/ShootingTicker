@@ -23,7 +23,7 @@ import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 
-import de.janbrodda.shootingticker.client.Settings;
+import de.janbrodda.shootingticker.client.settings.Settings;
 
 public class WebRequest {
 	public static enum Method {

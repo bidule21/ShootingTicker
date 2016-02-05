@@ -3,6 +3,7 @@ package de.janbrodda.shootingticker.client;
 import de.janbrodda.shootingticker.client.api.API;
 import de.janbrodda.shootingticker.client.app.App;
 import de.janbrodda.shootingticker.client.data.Competition;
+import de.janbrodda.shootingticker.client.gui.GUI;
 
 public class Main {
 
@@ -32,9 +33,11 @@ public class Main {
 				.withName("test")
 				.withRemainingSeconds(0));
 		p.selectCompetitionFolder(p.getAvailableFolders().get(0).file);
-		p.startCompetitionUpload();
-		p.stopCompetitionUpload();
-		p.startCompetitionUpload();
+		//p.startCompetitionUpload();
+		//p.stopCompetitionUpload();
+		//p.startCompetitionUpload();
+		
+		GUI.main(args);
 
 		// Check if upload is threaded..
 		while (true) {

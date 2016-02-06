@@ -56,33 +56,44 @@ public class Settings {
 
     public static Settings get() {
         if (instance == null) {
-            try {
-                Gson gson = new Gson();
-                String settingsJson = new String(Files.readAllBytes(Paths.get(settingsFile.getAbsolutePath())), settingsCharset);
-                instance = gson.fromJson(settingsJson, Settings.class);
-            } catch (IOException ex) {
-                System.err.println("Can't read Settings File.");
-            }
+            reload();
         }
 
         return instance;
     }
 
-    public void save() {
+    public static Settings reload() {
+        try {
+            Gson gson = new Gson();
+            String settingsJson = new String(Files.readAllBytes(Paths.get(settingsFile.getAbsolutePath())), settingsCharset);
+            instance = gson.fromJson(settingsJson, Settings.class);
+            return get();
+        } catch (IOException ex) {
+            System.err.println("Can't read Settings File.");
+            return null;
+        }
+    }
+
+    public boolean save() {
         if (instance == null) {
-            return;
+            return false;
+        }
+        
+        if (! SettingsValidator.validate(this).isValid){
+            return false;
         }
 
         Gson gson = new Gson();
         String settingsJson = gson.toJson(instance);
 
-        try {
-            PrintWriter writer = new PrintWriter(settingsFile, settingsCharset.toString());
+        try (PrintWriter writer = new PrintWriter(settingsFile, settingsCharset.toString())) {
             writer.println(settingsJson);
-            writer.close();
+            return true;
         } catch (FileNotFoundException | UnsupportedEncodingException ex) {
-            System.err.println("Can't save Settings to File.");
+            Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        return false;
     }
 
     @Override

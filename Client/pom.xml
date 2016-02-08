@@ -8,6 +8,13 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.seaglasslookandfeel</groupId>
+            <artifactId>seaglasslookandfeel</artifactId>
+            <version>0.2</version>
+        </dependency>
+        
+        
+        <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.4</version>
@@ -46,8 +53,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.5</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>1.7</source>
+                    <target>1.7</target>
                 </configuration>
             </plugin>
             <plugin>

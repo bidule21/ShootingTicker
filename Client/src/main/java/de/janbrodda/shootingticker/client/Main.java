@@ -26,7 +26,7 @@ public class Main {
 		s.competitionBasePath = "/home/jan/git/ShootingTicker/SampleData/15_09_23_Hamm_vs_Hamm_3";
 		s.save();
 
-		App p = App.get();
+		/*App p = App.get();
 		p.selectCompetition(
 				new Competition()
 				.withId(5629499534213120L)
@@ -37,6 +37,7 @@ public class Main {
 		//p.startCompetitionUpload();
 		//p.stopCompetitionUpload();
 		//p.startCompetitionUpload();
+                        */
 		
 		GUI.main(args);
 

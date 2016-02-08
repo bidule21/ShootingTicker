@@ -4,9 +4,6 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.net.ssl.HostnameVerifier;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.validator.routines.UrlValidator;
 
@@ -17,6 +14,7 @@ import org.apache.commons.validator.routines.UrlValidator;
 public class SettingsValidator {
 
     private static final UrlValidator urlValidator = new UrlValidator(UrlValidator.ALLOW_LOCAL_URLS);
+    private static final int PROXY_TIMEOUT_SECONDS = 1;
 
     public static ValidationResult validate(Settings settings) {
         boolean apiUrlValid = urlValidator.isValid(settings.apiUrl);
@@ -30,14 +28,16 @@ public class SettingsValidator {
                     && SettingsValidator.checkIfPortActive(settings.proxyHost, settings.proxyPort);
 
         }
-        
-        if (!apiUrlValid){
+
+        if (!apiUrlValid) {
             return new ValidationResult(false, "The API-Adress is not valid");
-        } else if (!apiKeyValid){
+        } else if (!apiKeyValid) {
             return new ValidationResult(false, "The API-Secret is not valid");
-        } else if (!proxySettingsValid){
+        } else if (!proxySettingsValid) {
             return new ValidationResult(false, "The Proxy Settings are not valid");
-        } else return new ValidationResult(true, "");
+        } else {
+            return new ValidationResult(true, "");
+        }
     }
 
     private static boolean checkIfPortActive(String host, int port) {
@@ -46,7 +46,7 @@ public class SettingsValidator {
             s = new Socket();
             s.setReuseAddress(true);
             SocketAddress sa = new InetSocketAddress(host, port);
-            s.connect(sa, 3000);
+            s.connect(sa, PROXY_TIMEOUT_SECONDS * 1000);
             return true;
         } catch (IOException e) {
         } finally {

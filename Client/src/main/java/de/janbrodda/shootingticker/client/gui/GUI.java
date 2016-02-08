@@ -13,6 +13,8 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -111,7 +113,7 @@ public class GUI extends javax.swing.JFrame {
                         .addComponent(jButton3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton5)
-                        .addGap(0, 156, Short.MAX_VALUE)))
+                        .addGap(0, 166, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         uploadPanelLayout.setVerticalGroup(
@@ -136,14 +138,14 @@ public class GUI extends javax.swing.JFrame {
         competitionsPanel.setLayout(competitionsPanelLayout);
         competitionsPanelLayout.setHorizontalGroup(
             competitionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 596, Short.MAX_VALUE)
+            .addGap(0, 599, Short.MAX_VALUE)
         );
         competitionsPanelLayout.setVerticalGroup(
             competitionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 425, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("WettkÃ¤mpfe verwalten", competitionsPanel);
+        jTabbedPane1.addTab("Wettkämpfe verwalten", competitionsPanel);
 
         jLabel1.setText("Export-Ordner:");
 
@@ -168,7 +170,12 @@ public class GUI extends javax.swing.JFrame {
 
         jLabel10.setText("API-Secret:");
 
-        btnChangeExportFolder.setText("Ã„ndern");
+        btnChangeExportFolder.setText("Ändern");
+        btnChangeExportFolder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChangeExportFolderActionPerformed(evt);
+            }
+        });
 
         btnSaveSettings.setText("Speichern");
         btnSaveSettings.addActionListener(new java.awt.event.ActionListener() {
@@ -195,48 +202,43 @@ public class GUI extends javax.swing.JFrame {
                 .addGroup(settingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(settingsPanelLayout.createSequentialGroup()
                         .addGroup(settingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4))
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7)
+                            .addComponent(btnSaveSettings))
                         .addGap(25, 25, 25)
-                        .addComponent(competitionBasePath)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnChangeExportFolder)
-                        .addGap(13, 13, 13))
-                    .addGroup(settingsPanelLayout.createSequentialGroup()
+                        .addGroup(settingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(settingsPanelLayout.createSequentialGroup()
+                                .addComponent(statusLabel)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(proxyPass)
+                            .addComponent(proxyUser)
+                            .addComponent(apiUrl)
+                            .addComponent(apiKey)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, settingsPanelLayout.createSequentialGroup()
                         .addGroup(settingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(settingsPanelLayout.createSequentialGroup()
                                 .addGroup(settingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4))
+                                .addGap(30, 30, 30)
+                                .addGroup(settingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(competitionBasePath)
                                     .addGroup(settingsPanelLayout.createSequentialGroup()
-                                        .addComponent(jLabel8)
-                                        .addGap(394, 394, 394))
-                                    .addGroup(settingsPanelLayout.createSequentialGroup()
-                                        .addComponent(jLabel5)
-                                        .addGap(57, 57, 57)
-                                        .addGroup(settingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(settingsPanelLayout.createSequentialGroup()
-                                                .addComponent(useProxy)
-                                                .addGap(0, 228, Short.MAX_VALUE))
-                                            .addComponent(proxyHost))))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(proxyPort, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(useProxy)
+                                        .addGap(0, 295, Short.MAX_VALUE))))
+                            .addComponent(jLabel8)
                             .addGroup(settingsPanelLayout.createSequentialGroup()
-                                .addGroup(settingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jLabel10)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel7)
-                                    .addComponent(btnSaveSettings))
-                                .addGap(25, 25, 25)
-                                .addGroup(settingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(settingsPanelLayout.createSequentialGroup()
-                                        .addComponent(statusLabel)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(proxyPass)
-                                    .addComponent(proxyUser)
-                                    .addComponent(apiUrl)
-                                    .addComponent(apiKey))))
-                        .addContainerGap())))
+                                .addComponent(jLabel5)
+                                .addGap(52, 52, 52)
+                                .addComponent(proxyHost)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(settingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnChangeExportFolder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(proxyPort))))
+                .addContainerGap())
         );
         settingsPanelLayout.setVerticalGroup(
             settingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -279,7 +281,7 @@ public class GUI extends javax.swing.JFrame {
                 .addGroup(settingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSaveSettings)
                     .addComponent(statusLabel))
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addContainerGap(146, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Einstellungen", settingsPanel);
@@ -355,6 +357,10 @@ public class GUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnSaveSettingsActionPerformed
 
+    private void btnChangeExportFolderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeExportFolderActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnChangeExportFolderActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -365,20 +371,8 @@ public class GUI extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("GTK+".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            UIManager.setLookAndFeel("com.seaglasslookandfeel.SeaGlassLookAndFeel");
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
         }
         //</editor-fold>
 

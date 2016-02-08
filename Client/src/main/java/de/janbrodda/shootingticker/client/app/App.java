@@ -11,6 +11,9 @@ import de.janbrodda.shootingticker.client.files.FileLister;
 import de.janbrodda.shootingticker.client.files.FileWatcher;
 import de.janbrodda.shootingticker.client.files.shooters.ShooterFileLister;
 import de.janbrodda.shootingticker.client.files.shooters.ShooterFileParser;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class App {
 	private static App instance;
@@ -28,8 +31,12 @@ public class App {
 	private final Runnable uploadRunnable = new Runnable() {
 		@Override
 		public void run() {
-			System.out.println("Uploading");
-			instance.startSynchronousCompetitionUpload();
+                    try {
+                        System.out.println("Uploading");
+                        instance.startSynchronousCompetitionUpload();
+                    } catch (IOException ex) {
+                        Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+                    }
 		}
 	};
 
@@ -51,7 +58,7 @@ public class App {
 		return instance;
 	}
 
-	public List<Competition> getRemoteCompetitions() {
+	public List<Competition> getRemoteCompetitions() throws IOException {
 		return api.loadAllRemoteCompetitions();
 	}
 
@@ -112,7 +119,7 @@ public class App {
 		fileWatcher.addFileHandler(uploadRunnable);
 	}
 
-	private void startSynchronousCompetitionUpload() {
+	private void startSynchronousCompetitionUpload() throws IOException {
 		if (selectedCompetition == null || selectedCompetitionFolder == null) {
 			throw new IllegalArgumentException(
 					"Application state not correct. {" + selectedCompetition + "," + selectedCompetitionFolder);

@@ -7,80 +7,86 @@ import com.google.gson.Gson;
 import de.janbrodda.shootingticker.client.settings.Settings;
 import de.janbrodda.shootingticker.client.api.WebRequest.Method;
 import de.janbrodda.shootingticker.client.data.Competition;
+import java.io.IOException;
 
 public class API {
-	private static API instance;
-	private static Gson gson = new Gson();
 
-	private Settings settings;
+    private static API instance;
+    private static Gson gson = new Gson();
 
-	private API(Settings settings) {
-		if (settings.apiKey == null) {
-			throw new IllegalArgumentException("settings parameter -apiKey- missing");
-		} else if (settings.apiUrl == null) {
-			throw new IllegalArgumentException("settings parameter -apiUrl- missing");
-		}
+    private Settings settings;
 
-		this.settings = settings;
-	}
+    private API(Settings settings) {
+        if (settings.apiKey == null) {
+            throw new IllegalArgumentException("settings parameter -apiKey- missing");
+        } else if (settings.apiUrl == null) {
+            throw new IllegalArgumentException("settings parameter -apiUrl- missing");
+        }
 
-	public static API get() {
-		if (instance == null) {
-			Settings settings = Settings.get();
-			instance = new API(settings);
-		}
-		return instance;
-	}
+        this.settings = settings;
+    }
 
-	public List<Competition> loadAllRemoteCompetitions() {
-		WebRequest request = new WebRequest(Method.GET, settings.apiUrl + "/api/get");
+    public static API get() {
+        if (instance == null) {
+            Settings settings = Settings.get();
+            instance = new API(settings);
+        }
+        return instance;
+    }
 
-		String resultJson = request.load();
-		Response response = gson.fromJson(resultJson, Response.class);
+    public List<Competition> loadAllRemoteCompetitions() throws IOException {
+        WebRequest request = new WebRequest(Method.GET, settings.apiUrl + "/api/get");
 
-		if (response.status != Response.Status.Success) {
-			throw new RemoteApiException(response.message);
-		}
+        String resultJson = request.load();
+        Response response = gson.fromJson(resultJson, Response.class);
 
-		return response.data.competitions;
-	}
+        if (response != null) {
+            if (response.status != Response.Status.Success) {
+                throw new RemoteApiException(response.message);
+            }
+            return response.data.competitions;
+        } else {
+            return null;
+        }
 
-	public Competition loadSingleRemoteCompetition(long competitionId) {
-		WebRequest request = new WebRequest(Method.GET, settings.apiUrl + "/api/get/" + competitionId);
+    }
 
-		String resultJson = request.load();
-		Response response = gson.fromJson(resultJson, Response.class);
+    public Competition loadSingleRemoteCompetition(long competitionId) throws IOException {
+        WebRequest request = new WebRequest(Method.GET, settings.apiUrl + "/api/get/" + competitionId);
 
-		if (response.status != Response.Status.Success) {
-			throw new RemoteApiException(response.message);
-		}
+        String resultJson = request.load();
+        Response response = gson.fromJson(resultJson, Response.class);
 
-		return response.data.competitions.get(0);
-	}
+        if (response.status != Response.Status.Success) {
+            throw new RemoteApiException(response.message);
+        }
 
-	public void saveCompetition(Competition competition) {
-		WebRequest request = new WebRequest(Method.POST, settings.apiUrl + "/api/put");
-		request.parameters.put("apikey", settings.apiKey);
-		request.parameters.put("competition", gson.toJson(competition));
+        return response.data.competitions.get(0);
+    }
 
-		String resultJson = request.load();
-		Response response = gson.fromJson(resultJson, Response.class);
+    public void saveCompetition(Competition competition) throws IOException {
+        WebRequest request = new WebRequest(Method.POST, settings.apiUrl + "/api/put");
+        request.parameters.put("apikey", settings.apiKey);
+        request.parameters.put("competition", gson.toJson(competition));
 
-		if (response.status != Response.Status.Success) {
-			throw new RemoteApiException(response.message);
-		}
-	}
+        String resultJson = request.load();
+        Response response = gson.fromJson(resultJson, Response.class);
 
-	public void deleteCompetition(Competition Competition) {
-		WebRequest request = new WebRequest(Method.POST, settings.apiUrl + "/api/delete");
-		request.parameters.put("apikey", settings.apiKey);
-		request.parameters.put("competitionid", Competition.id + "");
+        if (response.status != Response.Status.Success) {
+            throw new RemoteApiException(response.message);
+        }
+    }
 
-		String resultJson = request.load();
-		Response response = gson.fromJson(resultJson, Response.class);
+    public void deleteCompetition(Competition Competition) throws IOException {
+        WebRequest request = new WebRequest(Method.POST, settings.apiUrl + "/api/delete");
+        request.parameters.put("apikey", settings.apiKey);
+        request.parameters.put("competitionid", Competition.id + "");
 
-		if (response.status != Response.Status.Success) {
-			throw new RemoteApiException(response.message);
-		}
-	}
+        String resultJson = request.load();
+        Response response = gson.fromJson(resultJson, Response.class);
+
+        if (response.status != Response.Status.Success) {
+            throw new RemoteApiException(response.message);
+        }
+    }
 }

@@ -5,14 +5,34 @@
  */
 package de.janbrodda.shootingticker.client.gui;
 
+import de.janbrodda.shootingticker.client.app.App;
+import de.janbrodda.shootingticker.client.data.Competition;
 import de.janbrodda.shootingticker.client.settings.Settings;
 import de.janbrodda.shootingticker.client.settings.SettingsValidator;
 import de.janbrodda.shootingticker.client.settings.ValidationResult;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dialog.ModalityType;
+import java.awt.TrayIcon;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
+import javax.swing.ProgressMonitor;
 import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import org.apache.commons.lang3.StringUtils;
@@ -23,11 +43,45 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class GUI extends javax.swing.JFrame {
 
+    private final App app = App.get();
+    JPanel loadingPanel = new JPanel();
+    JProgressBar loadingPanelProgress = new JProgressBar();
+    final Component frame = this;
+
     /**
      * Creates new form GUI
      */
     public GUI() {
         initComponents();
+
+        loadingPanel.setBackground(Color.LIGHT_GRAY);
+        loadingPanelProgress.setIndeterminate(true);
+        loadingPanel.add(loadingPanelProgress);
+        loadingPanel.setPreferredSize(this.getSize());
+        loadingPanel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+            }
+        });
+
+        this.setResizable(false);
+    }
+    
+    public void showPopup(String message){
+        JOptionPane.showMessageDialog(this, message, "", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void executeInBackground(final Runnable runnable) {
+        jLayeredPane1.add(loadingPanel, BorderLayout.CENTER, 0);
+
+        new Thread() {
+            @Override
+            public void run() {
+                runnable.run();
+                jLayeredPane1.remove(loadingPanel);
+                frame.repaint();
+            }
+        }.start();
     }
 
     /**
@@ -39,9 +93,10 @@ public class GUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLayeredPane1 = new javax.swing.JLayeredPane();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         uploadPanel = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox();
+        competitionDropdown = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
@@ -72,14 +127,19 @@ public class GUI extends javax.swing.JFrame {
         statusLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                formComponentResized(evt);
+            }
+        });
+
+        jLayeredPane1.setLayout(new java.awt.BorderLayout());
 
         jTabbedPane1.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jTabbedPane1StateChanged(evt);
             }
         });
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel2.setText("Verbleibende Zeit (Minuten):");
 
@@ -100,7 +160,7 @@ public class GUI extends javax.swing.JFrame {
             .addGroup(uploadPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(uploadPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(competitionDropdown, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(uploadPanelLayout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -120,7 +180,7 @@ public class GUI extends javax.swing.JFrame {
             uploadPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(uploadPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(competitionDropdown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(uploadPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -129,7 +189,7 @@ public class GUI extends javax.swing.JFrame {
                     .addComponent(jButton3)
                     .addComponent(jButton4)
                     .addComponent(jButton5))
-                .addContainerGap(339, Short.MAX_VALUE))
+                .addContainerGap(245, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Hochladen", uploadPanel);
@@ -142,7 +202,7 @@ public class GUI extends javax.swing.JFrame {
         );
         competitionsPanelLayout.setVerticalGroup(
             competitionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 425, Short.MAX_VALUE)
+            .addGap(0, 317, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Wettkämpfe verwalten", competitionsPanel);
@@ -281,12 +341,14 @@ public class GUI extends javax.swing.JFrame {
                 .addGroup(settingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSaveSettings)
                     .addComponent(statusLabel))
-                .addContainerGap(146, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Einstellungen", settingsPanel);
 
-        getContentPane().add(jTabbedPane1, java.awt.BorderLayout.CENTER);
+        jLayeredPane1.add(jTabbedPane1, java.awt.BorderLayout.CENTER);
+
+        getContentPane().add(jLayeredPane1, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -294,19 +356,42 @@ public class GUI extends javax.swing.JFrame {
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
         JPanel active = (JPanel) jTabbedPane1.getSelectedComponent();
         if (active.equals(settingsPanel)) {
-            Settings s = Settings.get();
-            apiUrl.setText(s.apiUrl);
-            apiKey.setText(s.apiKey);
-            proxyHost.setText(s.proxyHost);
-            proxyUser.setText(s.proxyUser);
-            proxyPass.setText(s.proxyPass);
-            proxyPort.setText(s.proxyPort + "");
-            competitionBasePath.setText(s.competitionBasePath);
-            competitionBasePath.setToolTipText(s.competitionBasePath);
-            useProxy.setSelected(s.useProxy);
-            useProxyActionPerformed(null);
+            panelChangedToSettings();
+        } else if (active.equals(uploadPanel)) {
+            panelChangedToUpload();
         }
     }//GEN-LAST:event_jTabbedPane1StateChanged
+
+    private void panelChangedToSettings() {
+        Settings s = Settings.get();
+        apiUrl.setText(s.apiUrl);
+        apiKey.setText(s.apiKey);
+        proxyHost.setText(s.proxyHost);
+        proxyUser.setText(s.proxyUser);
+        proxyPass.setText(s.proxyPass);
+        proxyPort.setText(s.proxyPort + "");
+        competitionBasePath.setText(s.competitionBasePath);
+        competitionBasePath.setToolTipText(s.competitionBasePath);
+        useProxy.setSelected(s.useProxy);
+        useProxyActionPerformed(null);
+    }
+
+    private void panelChangedToUpload() {
+        executeInBackground(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    competitionDropdown.removeAllItems();
+                    for (Competition competition : app.getRemoteCompetitions()) {
+                        competitionDropdown.addItem(new ComboboxItem<>(competition.name, competition));
+                    }
+                } catch (IOException ex) {
+                    showPopup("Can't load Competitions from Server");
+                    Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+    }
 
     private void useProxyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_useProxyActionPerformed
         boolean checked = useProxy.isSelected();
@@ -361,6 +446,10 @@ public class GUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnChangeExportFolderActionPerformed
 
+    private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
+        loadingPanel.setPreferredSize(this.getSize());
+    }//GEN-LAST:event_formComponentResized
+
     /**
      * @param args the command line arguments
      */
@@ -390,12 +479,12 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton btnChangeExportFolder;
     private javax.swing.JButton btnSaveSettings;
     private javax.swing.JTextField competitionBasePath;
+    private javax.swing.JComboBox competitionDropdown;
     private javax.swing.JPanel competitionsPanel;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -406,6 +495,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField proxyHost;

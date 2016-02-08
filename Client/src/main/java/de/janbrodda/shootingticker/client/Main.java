@@ -15,7 +15,7 @@ public class Main {
 
 		Settings s = Settings.get();
 
-		s.useProxy = false;
+		/*s.useProxy = false;
 		s.proxyHost = "proxy";
 		s.proxyPort = 8080;
 		s.apiKey = "fdhdfdrshger";
@@ -24,7 +24,7 @@ public class Main {
 		// Apps/Github_Data/ShootingTicker/SampleData";
 		// s.competitionBasePath = "C:/tmp";
 		s.competitionBasePath = "/home/jan/git/ShootingTicker/SampleData/15_09_23_Hamm_vs_Hamm_3";
-		s.save();
+		s.save();*/
 
 		/*App p = App.get();
 		p.selectCompetition(

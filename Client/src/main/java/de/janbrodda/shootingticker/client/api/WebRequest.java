@@ -26,126 +26,117 @@ import org.apache.http.message.BasicNameValuePair;
 import de.janbrodda.shootingticker.client.settings.Settings;
 
 public class WebRequest {
-	public static enum Method {
-		GET,
-		POST
-	}
 
-	private static HttpClient CLIENT;
-	private static int CONNECTION_TIMEOUT = 10 * 1000;
-	private static Settings settings = Settings.get();
+    public static enum Method {
 
-	public Method method;
-	public String url;
-	public Map<String, String> parameters = new HashMap<>();
+        GET,
+        POST
+    }
 
-	public WebRequest(Method method, String url) {
-		if (CLIENT == null) {
-			prepareHttpClient();
-		}
+    private static HttpClient CLIENT;
+    private static int CONNECTION_TIMEOUT = 10 * 1000;
+    private static Settings settings = Settings.get();
 
-		this.method = method;
-		this.url = url;
-	}
+    public Method method;
+    public String url;
+    public Map<String, String> parameters = new HashMap<>();
 
-	public String load() {
-		HttpResponse response = null;
+    public WebRequest(Method method, String url) {
+        if (CLIENT == null) {
+            prepareHttpClient();
+        }
 
-		switch (method) {
-		case GET:
-			response = loadGet();
-			break;
-		case POST:
-			response = loadPost();
-		}
+        this.method = method;
+        this.url = url;
+    }
 
-		if (response == null) {
-			return null;
-		}
+    public String load() throws IOException {
+        HttpResponse response = null;
 
-		switch (response.getStatusLine().getStatusCode()) {
-		case 200:
+        switch (method) {
+            case GET:
+                response = loadGet();
+                break;
+            case POST:
+                response = loadPost();
+        }
 
-			try {
-				BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-				StringBuffer result = new StringBuffer();
-				String line = "";
-				while ((line = rd.readLine()) != null) {
-					result.append(line);
-				}
+        if (response == null) {
+            return null;
+        }
 
-				return result.toString();
+        switch (response.getStatusLine().getStatusCode()) {
+            case 200:
 
-			} catch (UnsupportedOperationException | IOException ex) {
-				ex.printStackTrace();
-				return null;
-			}
+                try {
+                    BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+                    StringBuilder result = new StringBuilder();
+                    String line;
+                    while ((line = rd.readLine()) != null) {
+                        result.append(line);
+                    }
 
-		default:
-			System.err.println(response.toString());
-			return null;
-		}
-	}
+                    return result.toString();
 
-	private void prepareHttpClient() {
-		RequestConfig.Builder requestBuilder = RequestConfig.custom()
-				.setConnectTimeout(CONNECTION_TIMEOUT)
-				.setConnectionRequestTimeout(CONNECTION_TIMEOUT)
-				.setSocketTimeout(CONNECTION_TIMEOUT)
-				.setContentCompressionEnabled(false);
+                } catch (UnsupportedOperationException ex) {
+                    return null;
+                }
 
-		CredentialsProvider proxyCredentials = new BasicCredentialsProvider();
+            default:
+                throw new IOException("Webrequest finished with Error: " + response.getStatusLine());
+        }
+    }
 
-		if (settings.useProxy) {
-			requestBuilder.setProxy(new HttpHost(settings.proxyHost, settings.proxyPort));
-			if (settings.proxyPass != null && settings.proxyUser != null) {
-				UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(settings.proxyUser, settings.proxyPass);
-				proxyCredentials.setCredentials(AuthScope.ANY, credentials);
-			}
-		}
+    private void prepareHttpClient() {
+        RequestConfig.Builder requestBuilder = RequestConfig.custom()
+                .setConnectTimeout(CONNECTION_TIMEOUT)
+                .setConnectionRequestTimeout(CONNECTION_TIMEOUT)
+                .setSocketTimeout(CONNECTION_TIMEOUT)
+                .setContentCompressionEnabled(false);
 
-		HttpClientBuilder builder = HttpClientBuilder.create();
-		builder.setDefaultRequestConfig(requestBuilder.build());
+        CredentialsProvider proxyCredentials = new BasicCredentialsProvider();
 
-		if (settings.useProxy) {
-			CLIENT = builder.setDefaultCredentialsProvider(proxyCredentials).build();
-		} else {
-			CLIENT = builder.build();
-		}
-	}
+        if (settings.useProxy) {
+            requestBuilder.setProxy(new HttpHost(settings.proxyHost, settings.proxyPort));
+            if (settings.proxyPass != null && settings.proxyUser != null) {
+                UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(settings.proxyUser, settings.proxyPass);
+                proxyCredentials.setCredentials(AuthScope.ANY, credentials);
+            }
+        }
 
-	private HttpResponse loadGet() {
-		HttpGet request = new HttpGet(url);
-		try {
-			return CLIENT.execute(request);
-		} catch (IOException ex) {
-			ex.printStackTrace();
-			return null;
-		}
-	}
+        HttpClientBuilder builder = HttpClientBuilder.create();
+        builder.setDefaultRequestConfig(requestBuilder.build());
 
-	private HttpResponse loadPost() {
-		HttpPost request = new HttpPost(url);
+        if (settings.useProxy) {
+            CLIENT = builder.setDefaultCredentialsProvider(proxyCredentials).build();
+        } else {
+            CLIENT = builder.build();
+        }
+    }
 
-		ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+    private HttpResponse loadGet() throws IOException {
+        HttpGet request = new HttpGet(url);
+        return CLIENT.execute(request);
+    }
 
-		for (Entry<String, String> entry : parameters.entrySet()) {
-			String key = entry.getKey();
-			String value = entry.getValue();
+    private HttpResponse loadPost() throws IOException {
+        HttpPost request = new HttpPost(url);
 
-			postParameters.add(new BasicNameValuePair(key, value));
-		}
+        ArrayList<NameValuePair> postParameters = new ArrayList<>();
 
-		try {
-			// This bit is EXTREMLY important for transmitting umlauts (äöüß)!
-			UrlEncodedFormEntity entity = new UrlEncodedFormEntity(postParameters);
-			entity.setContentType("application/x-www-form-urlencoded; charset=iso-8859-1");
-			request.setEntity(entity);
+        for (Entry<String, String> entry : parameters.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
 
-			return CLIENT.execute(request);
-		} catch (IOException ex) {
-			ex.printStackTrace();
-			return null;
-		}
-	}
+            postParameters.add(new BasicNameValuePair(key, value));
+        }
+
+        // This bit is EXTREMLY important for transmitting umlauts!
+        UrlEncodedFormEntity entity = new UrlEncodedFormEntity(postParameters);
+        entity.setContentType("application/x-www-form-urlencoded; charset=iso-8859-1");
+        request.setEntity(entity);
+
+        return CLIENT.execute(request);
+
+    }
 }

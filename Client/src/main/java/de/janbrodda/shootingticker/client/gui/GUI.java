@@ -13,34 +13,24 @@ import de.janbrodda.shootingticker.client.settings.ValidationResult;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dialog.ModalityType;
-import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.ProgressMonitor;
 import javax.swing.SwingUtilities;
-import javax.swing.SwingWorker;
 import javax.swing.UIManager;
-import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableModel;
 import org.apache.commons.lang3.StringUtils;
@@ -62,7 +52,7 @@ public class GUI extends javax.swing.JFrame {
     public GUI() {
         initComponents();
 
-        loadingPanel.setBackground(Color.LIGHT_GRAY);
+        loadingPanel.setBackground(new Color(200, 200, 200));
         loadingPanelProgress.setIndeterminate(true);
         loadingPanel.add(loadingPanelProgress);
         loadingPanel.setPreferredSize(this.getSize());
@@ -104,7 +94,6 @@ public class GUI extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         mainContent = new javax.swing.JLayeredPane();
         jTabbedPane1 = new javax.swing.JTabbedPane();
@@ -120,7 +109,7 @@ public class GUI extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         competitionDropdown1 = new javax.swing.JComboBox();
         competitionsPanel = new javax.swing.JPanel();
-        competitionPanelData = new javax.swing.JPanel();
+        competitionsPanelData = new javax.swing.JPanel();
         settingsPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         competitionBasePath = new javax.swing.JTextField();
@@ -205,7 +194,7 @@ public class GUI extends javax.swing.JFrame {
                 .addComponent(jButton3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton5)
-                .addContainerGap(122, Short.MAX_VALUE))
+                .addContainerGap(142, Short.MAX_VALUE))
         );
         uploadPanelLayout.setVerticalGroup(
             uploadPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -231,7 +220,7 @@ public class GUI extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Hochladen", uploadPanel);
 
-        competitionPanelData.setLayout(new java.awt.BorderLayout());
+        competitionsPanelData.setLayout(new java.awt.BorderLayout());
 
         javax.swing.GroupLayout competitionsPanelLayout = new javax.swing.GroupLayout(competitionsPanel);
         competitionsPanel.setLayout(competitionsPanelLayout);
@@ -239,14 +228,14 @@ public class GUI extends javax.swing.JFrame {
             competitionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(competitionsPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(competitionPanelData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(competitionsPanelData, javax.swing.GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE)
                 .addContainerGap())
         );
         competitionsPanelLayout.setVerticalGroup(
             competitionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(competitionsPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(competitionPanelData, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(competitionsPanelData, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(184, Short.MAX_VALUE))
         );
 
@@ -303,61 +292,59 @@ public class GUI extends javax.swing.JFrame {
         settingsPanelLayout.setHorizontalGroup(
             settingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(settingsPanelLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jLabel3))
+            .addGroup(settingsPanelLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jLabel8))
+            .addGroup(settingsPanelLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(btnSaveSettings)
+                .addGap(25, 25, 25)
+                .addComponent(statusLabel))
+            .addGroup(settingsPanelLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(settingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(settingsPanelLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel3))
-                    .addGroup(settingsPanelLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel8))
-                    .addGroup(settingsPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel10)
-                        .addGap(48, 48, 48)
-                        .addComponent(apiKey, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(settingsPanelLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(btnSaveSettings)
-                        .addGap(25, 25, 25)
-                        .addComponent(statusLabel))
-                    .addGroup(settingsPanelLayout.createSequentialGroup()
-                        .addGroup(settingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(settingsPanelLayout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jLabel6))
-                            .addGroup(settingsPanelLayout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jLabel4))
-                            .addGroup(settingsPanelLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel5))
-                            .addGroup(settingsPanelLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel7)))
-                        .addGap(31, 31, 31)
-                        .addGroup(settingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(settingsPanelLayout.createSequentialGroup()
-                                .addComponent(proxyHost, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(proxyPort))
-                            .addComponent(proxyUser, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(proxyPass)
-                            .addGroup(settingsPanelLayout.createSequentialGroup()
-                                .addComponent(useProxy)
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(settingsPanelLayout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(settingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9)
                             .addComponent(jLabel1))
-                        .addGap(30, 30, 30)
-                        .addGroup(settingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGap(23, 23, 23)
+                        .addGroup(settingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(settingsPanelLayout.createSequentialGroup()
                                 .addComponent(competitionBasePath)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnChangeExportFolder))
-                            .addComponent(apiUrl, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap())
+                                .addComponent(btnChangeExportFolder)
+                                .addGap(10, 10, 10))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, settingsPanelLayout.createSequentialGroup()
+                                .addComponent(apiUrl)
+                                .addContainerGap())))
+                    .addGroup(settingsPanelLayout.createSequentialGroup()
+                        .addGroup(settingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(settingsPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addGap(41, 41, 41)
+                                .addComponent(apiKey))
+                            .addGroup(settingsPanelLayout.createSequentialGroup()
+                                .addGroup(settingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel7)
+                                    .addGroup(settingsPanelLayout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addComponent(jLabel4))
+                                    .addComponent(jLabel6))
+                                .addGap(24, 24, 24)
+                                .addGroup(settingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(proxyUser)
+                                    .addComponent(proxyPass)
+                                    .addGroup(settingsPanelLayout.createSequentialGroup()
+                                        .addComponent(proxyHost)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(proxyPort, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(settingsPanelLayout.createSequentialGroup()
+                                        .addComponent(useProxy)
+                                        .addGap(0, 395, Short.MAX_VALUE)))))
+                        .addContainerGap())))
         );
         settingsPanelLayout.setVerticalGroup(
             settingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -402,12 +389,11 @@ public class GUI extends javax.swing.JFrame {
                 .addGroup(settingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(apiKey, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10))
-                .addGap(18, 18, 18)
-                .addGroup(settingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnSaveSettings)
-                    .addGroup(settingsPanelLayout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addComponent(statusLabel))))
+                .addGap(13, 13, 13)
+                .addGroup(settingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(statusLabel)
+                    .addComponent(btnSaveSettings))
+                .addGap(5, 5, 5))
         );
 
         jTabbedPane1.addTab("Einstellungen", settingsPanel);
@@ -420,37 +406,77 @@ public class GUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void panelChangedToCompetitions() {
-        String[] columnNames = {"First Name", "Last Name", ""};
-        Object[][] data
-                = {
-                    {"Homer", "Simpson", "delete Homer"},
-                    {"Marge", "Simpson", "delete Marge"},
-                    {"Marge", "Simpson", "delete Marge"},
-                    {"Marge", "Simpson", "delete Marge"},
-                    {"Marge", "Simpson", "delete Marge"},
-                    {"Marge", "Simpson", "delete Marge"},
-                    {"Marge", "Simpson", "delete Marge"},
-                    {"Marge", "Simpson", "delete Marge"},
-                    {"Marge", "Simpson", "delete Marge"},
-                    {"Bart", "Simpson", "delete Bart"},
-                    {"Lisa", "Simpson", "delete Lisa"},};
+        competitionsPanelData.removeAll();
+        
+        executeInBackground(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    final String[] columnNames = {"#", "Name", "Date", ""};
 
-        DefaultTableModel model = new DefaultTableModel(data, columnNames);
-        JTable table = new JTable(model);
+                    final List<Competition> competitions = app.getRemoteCompetitions();
+                    List<Object[]> tableData = new ArrayList<>();
 
-        Action delete = new AbstractAction() {
-            public void actionPerformed(ActionEvent e) {
-                JTable table = (JTable) e.getSource();
-                int modelRow = Integer.valueOf(e.getActionCommand());
-                ((DefaultTableModel) table.getModel()).removeRow(modelRow);
+                    for (Competition competition : competitions) {
+                        Object[] rowData = new Object[columnNames.length];
+                        rowData[0] = competition.id;
+                        rowData[1] = competition.name;
+                        //TODO add date to data model
+                        rowData[2] = competition.timestamp;
+
+                        rowData[columnNames.length - 1] = "Delete";
+                        tableData.add(rowData);
+                    }
+
+                    Object[][] data = new Object[tableData.size()][];
+                    for (int i = 0; i < tableData.size(); i++) {
+                        data[i] = tableData.get(i);
+                    }
+
+                    // anonymous class overwrite is necessary for cell editing
+                    DefaultTableModel model = new DefaultTableModel(data, columnNames);
+                    JTable table = new JTable(model) {
+                        @Override
+                        public boolean isCellEditable(int row, int column) {
+                            // returns true for last column, this should be the button
+                            return column == columnNames.length - 1;
+                        }
+
+                    };
+                    table.setModel(model);
+
+                    // action for delete button press
+                    Action delete = new AbstractAction() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            JTable table = (JTable) e.getSource();
+                            int modelRow = Integer.valueOf(e.getActionCommand());
+                            Competition competition = competitions.get(modelRow);
+
+                            boolean deleteConfirmed
+                                    = JOptionPane.showConfirmDialog(frame,
+                                            "Wettkampf <" + competition.name + "> löschen?",
+                                            "",
+                                            JOptionPane.YES_NO_OPTION)
+                                    == JOptionPane.YES_OPTION;
+
+                            if (deleteConfirmed) {
+                                ((DefaultTableModel) table.getModel()).removeRow(modelRow);
+                            }
+                        }
+                    };
+
+                    ButtonColumn buttonColumn = new ButtonColumn(table, delete, columnNames.length - 1);
+                    buttonColumn.setMnemonic(KeyEvent.VK_D);
+
+                    JScrollPane container = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+                    competitionsPanelData.add(container);
+                } catch (IOException ex) {
+                    showPopup("Can't load Competitions from Server");
+                    Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-        };
-
-        ButtonColumn buttonColumn = new ButtonColumn(table, delete, 2);
-        buttonColumn.setMnemonic(KeyEvent.VK_D);
-
-        JScrollPane container = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        competitionPanelData.add(container);
+        });
 
     }
 
@@ -557,33 +583,29 @@ public class GUI extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
+        /* Set custom look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         /*try {
-            for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
-            // If Nimbus is not available, you can set the GUI to another look and feel.
-        }*/
+         for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+         if ("Nimbus".equals(info.getName())) {
+         UIManager.setLookAndFeel(info.getClassName());
+         break;
+         }
+         }
+         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+         // If Nimbus is not available, you can set the GUI to another look and feel.
+         }*/
 
         try {
-         UIManager.setLookAndFeel("com.seaglasslookandfeel.SeaGlassLookAndFeel");
-         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
-         }
-  
-        
-                
-         //</editor-fold>
-       
+            UIManager.setLookAndFeel("com.seaglasslookandfeel.SeaGlassLookAndFeel");
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+        }
 
-         /* Create and display the form */
+        //</editor-fold>
+        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new GUI().setVisible(true);
@@ -599,8 +621,8 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JTextField competitionBasePath;
     private javax.swing.JComboBox competitionDropdown;
     private javax.swing.JComboBox competitionDropdown1;
-    private javax.swing.JPanel competitionPanelData;
     private javax.swing.JPanel competitionsPanel;
+    private javax.swing.JPanel competitionsPanelData;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;

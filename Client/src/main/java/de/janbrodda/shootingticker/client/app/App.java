@@ -16,136 +16,137 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class App {
-	private static App instance;
 
-	private Settings settings;
-	private API api;
+    private static App instance;
 
-	private File selectedCompetitionFolder;
-	private Competition selectedCompetition;
+    private final Settings settings;
+    private final API api;
 
-	private FileWatcher fileWatcher;
-	private boolean isUploading = false;
-	private int lastUploadTimestamp;
-	
-	private final Runnable uploadRunnable = new Runnable() {
-		@Override
-		public void run() {
-                    try {
-                        System.out.println("Uploading");
-                        instance.startSynchronousCompetitionUpload();
-                    } catch (IOException ex) {
-                        Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-		}
-	};
+    private File selectedCompetitionFolder;
+    private Competition selectedCompetition;
 
-	private App(Settings settings, API api) {
-		/*if (settings.competitionBasePath == null || settings.competitionBasePath.equals("")) {
-			throw new IllegalArgumentException("settings parameter -competitionBasePath- missing");
-		}*/
+    private FileWatcher fileWatcher;
+    private boolean isUploading = false;
+    private int lastUploadTimestamp;
 
-		this.settings = settings;
-		this.api = api;
-	}
+    private final Runnable uploadRunnable = new Runnable() {
+        @Override
+        public void run() {
+            try {
+                System.out.println("Uploading");
+                instance.startSynchronousCompetitionUpload();
+            } catch (IOException ex) {
+                Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    };
 
-	public static App get() {
-		if (instance == null) {
-			Settings settings = Settings.get();
-			API api = API.get();
-			instance = new App(settings, api);
-		}
-		return instance;
-	}
+    private App(Settings settings, API api) {
+        /*if (settings.competitionBasePath == null || settings.competitionBasePath.equals("")) {
+         throw new IllegalArgumentException("settings parameter -competitionBasePath- missing");
+         }*/
 
-	public List<Competition> getRemoteCompetitions() throws IOException {
-		return api.loadAllRemoteCompetitions();
-	}
+        this.settings = settings;
+        this.api = api;
+    }
 
-	public void selectCompetition(Competition competition) {
-		if (competition.id > 0L && competition.numShots > 0) {
-			selectedCompetition = competition;
-		} else {
-			throw new IllegalArgumentException("The provided competition has missing fields (id,numShots)");
-		}
-	}
+    public static App get() {
+        if (instance == null) {
+            Settings settings = Settings.get();
+            API api = API.get();
+            instance = new App(settings, api);
+        }
+        return instance;
+    }
 
-	public void selectCompetitionFolder(File file) {
-		if (file.isDirectory() && file.canRead()) {
-			selectedCompetitionFolder = file;
-		} else {
-			throw new IllegalArgumentException("Cant read selected folder, or it is not a directory");
-		}
-	}
+    public List<Competition> getRemoteCompetitions() throws IOException {
+        return api.loadAllRemoteCompetitions();
+    }
 
-	public List<FolderData> getAvailableFolders() {
-		List<FolderData> result = new ArrayList<>();
-		List<File> directories = FileLister.getDirectoriesWithXmlContent(settings.competitionBasePath);
+    public void selectCompetition(Competition competition) {
+        if (competition.id > 0L && competition.numShots > 0) {
+            selectedCompetition = competition;
+        } else {
+            throw new IllegalArgumentException("The provided competition has missing fields (id,numShots)");
+        }
+    }
 
-		for (File file : directories) {
-			String folderName = file.getAbsolutePath().replace(settings.competitionBasePath, "");
+    public void selectCompetitionFolder(File file) {
+        if (file.isDirectory() && file.canRead()) {
+            selectedCompetitionFolder = file;
+        } else {
+            throw new IllegalArgumentException("Cant read selected folder, or it is not a directory");
+        }
+    }
 
-			FolderData folder = new FolderData();
-			folder.file = file;
-			folder.name = folderName;
-			result.add(folder);
-		}
+    public List<FolderData> getAvailableFolders() {
+        List<FolderData> result = new ArrayList<>();
+        List<File> directories = FileLister.getDirectoriesWithXmlContent(settings.competitionBasePath);
 
-		return result;
-	}
+        for (File file : directories) {
+            String folderName = file.getAbsolutePath().replace(settings.competitionBasePath, "");
 
-	public void startCompetitionUpload() {
-		if (selectedCompetition == null || selectedCompetitionFolder == null || isUploading) {
-			throw new IllegalArgumentException("Application state not correct. {" + selectedCompetition + ","
-					+ selectedCompetitionFolder + "," + isUploading);
-		}
+            FolderData folder = new FolderData();
+            folder.file = file;
+            folder.name = folderName;
+            result.add(folder);
+        }
 
-		final App app = this;
+        return result;
+    }
 
-		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					app.stopCompetitionUpload();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}));
+    public void startCompetitionUpload() {
+        if (selectedCompetition == null || selectedCompetitionFolder == null || isUploading) {
+            throw new IllegalArgumentException("Application state not correct. {" + selectedCompetition + ","
+                    + selectedCompetitionFolder + "," + isUploading);
+        }
 
-		isUploading = true;
-		fileWatcher = new FileWatcher(selectedCompetitionFolder);
-		uploadRunnable.run();
-		fileWatcher.addFileHandler(uploadRunnable);
-	}
+        final App app = this;
 
-	private void startSynchronousCompetitionUpload() throws IOException {
-		if (selectedCompetition == null || selectedCompetitionFolder == null) {
-			throw new IllegalArgumentException(
-					"Application state not correct. {" + selectedCompetition + "," + selectedCompetitionFolder);
-		}
+        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    app.stopCompetitionUpload();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }));
 
-		// Protect us from too many frequent uploads
-		if (System.currentTimeMillis() - settings.minSecondsBetweenUploads * 1000 < lastUploadTimestamp) {
-			return;
-		}
+        isUploading = true;
+        fileWatcher = new FileWatcher(selectedCompetitionFolder);
+        uploadRunnable.run();
+        fileWatcher.addFileHandler(uploadRunnable);
+    }
 
-		List<File> shooterFiles = ShooterFileLister.getUniqueShooterFiles(selectedCompetitionFolder);
-		selectedCompetition.teams = ShooterFileParser.parseCompetition(shooterFiles).teams;
+    private void startSynchronousCompetitionUpload() throws IOException {
+        if (selectedCompetition == null || selectedCompetitionFolder == null) {
+            throw new IllegalArgumentException(
+                    "Application state not correct. {" + selectedCompetition + "," + selectedCompetitionFolder);
+        }
 
-		api.saveCompetition(selectedCompetition);
-	}
+        // Protect us from too many frequent uploads
+        if (System.currentTimeMillis() - settings.minSecondsBetweenUploads * 1000 < lastUploadTimestamp) {
+            return;
+        }
 
-	public boolean stopCompetitionUpload() {
-		if (isUploading) {
-			if (fileWatcher != null) {
-				fileWatcher.stopWatching();
-			}
-			isUploading = false;
-			return true;
-		} else {
-			return false;
-		}
+        List<File> shooterFiles = ShooterFileLister.getUniqueShooterFiles(selectedCompetitionFolder);
+        selectedCompetition.teams = ShooterFileParser.parseCompetition(shooterFiles).teams;
 
-	}
+        api.saveCompetition(selectedCompetition);
+    }
+
+    public boolean stopCompetitionUpload() {
+        if (isUploading) {
+            if (fileWatcher != null) {
+                fileWatcher.stopWatching();
+            }
+            isUploading = false;
+            return true;
+        } else {
+            return false;
+        }
+
+    }
 }

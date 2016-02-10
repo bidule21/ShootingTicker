@@ -42,10 +42,6 @@ public class App {
     };
 
     private App(Settings settings, API api) {
-        /*if (settings.competitionBasePath == null || settings.competitionBasePath.equals("")) {
-         throw new IllegalArgumentException("settings parameter -competitionBasePath- missing");
-         }*/
-
         this.settings = settings;
         this.api = api;
     }

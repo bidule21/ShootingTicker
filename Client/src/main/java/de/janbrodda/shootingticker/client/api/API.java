@@ -17,12 +17,6 @@ public class API {
     private Settings settings;
 
     private API(Settings settings) {
-        /*if (settings.apiKey == null) {
-         throw new IllegalArgumentException("settings parameter -apiKey- missing");
-         } else if (settings.apiUrl == null) {
-         throw new IllegalArgumentException("settings parameter -apiUrl- missing");
-         }*/
-
         this.settings = settings;
     }
 

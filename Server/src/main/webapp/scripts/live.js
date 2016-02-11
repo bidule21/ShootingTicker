@@ -263,7 +263,7 @@ function AppViewModel() {
 			competition = data.data.competitions[0];
 			self.competition(competition);
 
-			if (callback != null)
+			if (typeof callback === 'function')
 				callback();
 		});
 	};

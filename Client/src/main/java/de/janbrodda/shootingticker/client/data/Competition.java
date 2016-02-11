@@ -1,6 +1,7 @@
 package de.janbrodda.shootingticker.client.data;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -11,6 +12,7 @@ public class Competition {
 	public int numShots;
 	public long id;
 	public long timestamp;
+	public Date date;
 	public List<Team> teams = new ArrayList<>();
 
 	@Override

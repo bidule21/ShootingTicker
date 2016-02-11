@@ -1,3 +1,5 @@
+/* global ko, moment */
+
 var Settings = {
 	refreshInterval : 10000,
 	minLoadingTime : 800
@@ -5,7 +7,7 @@ var Settings = {
 
 function AppViewModel() {
 	var self = this;
-	self.competitions = ko.observable([]);
+	self.competitions = ko.observableArray();
 	self.loadingTimeOver = ko.observable(false);
 	self.loaded = ko.computed(function() {
 		return self.loadingTimeOver()
@@ -25,8 +27,9 @@ function AppViewModel() {
 
 	self.fetchData = function(callback) {
 		$.getJSON("/api/get", function(data) {
-			self.competitions(data.data.competitions);
-			self.competitions().forEach(function(competition) {
+			self.competitions.removeAll();
+			
+			data.data.competitions.forEach(function(competition) {
 				if (competition.status == "Running") {
 					competition.statusText = "Wettkampf läuft";
 				} else if (competition.status == "Planned") {
@@ -34,11 +37,16 @@ function AppViewModel() {
 				} else if (competition.status == "Finished") {
 					competition.statusText = "Wettkampf beendet";
 				} else {
-					competition.statusText = "Kein Status verfügbar";
+					competition.statusText = "";
 				}
+				
+				var rawDate = new Date(competition.date);
+				competition.parsedDate = moment(rawDate).format("DD.MM.YY - HH:mm [Uhr]");
+								
+				self.competitions.push(competition);
 			});
 
-			if (callback != null)
+			if (typeof callback === 'function')
 				callback();
 
 		});

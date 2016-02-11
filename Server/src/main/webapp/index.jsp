@@ -34,9 +34,7 @@
 			</div>
 		</div>
 
-		<script	src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
-		<script	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-		<script	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/g/jquery@2.2.0,jquery.jcanvas@15.12.12,momentjs@2.11.2,knockout@3.4.0"></script>
 		<script src="/scripts/index.js"></script>
 	</body>
 </html>

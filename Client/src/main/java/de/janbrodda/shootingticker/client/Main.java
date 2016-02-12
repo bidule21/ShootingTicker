@@ -5,18 +5,20 @@ import de.janbrodda.shootingticker.client.settings.Settings;
 
 public class Main {
 
-    public static void main(String[] args) {
+	public static void main(String[] args) {
 		Settings s = Settings.get();
 		s.apiUrl = "http://localhost:8080";
 		s.apiKey = "fdhdfdrshger";
-		s.competitionBasePath = "C:/tmp";
-		
-        GUI.main(args);
-		
+
+		//s.competitionBasePath = "C:/tmp";
+		s.competitionBasePath = "/home/jan/git/ShootingTicker/SampleData";
+
+		GUI.main(args);
+
 		/**
-		 * Notes:
-		 * - upload GUI should show competition teams when selecting from localCompetitionsDropdown
+		 * Notes: - upload GUI should show competition teams when selecting from
+		 * localCompetitionsDropdown
 		 *
 		 */
-    }
+	}
 }

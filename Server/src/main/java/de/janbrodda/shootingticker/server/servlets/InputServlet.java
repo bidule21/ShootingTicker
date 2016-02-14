@@ -17,6 +17,7 @@ import de.janbrodda.shootingticker.server.response.Response.Status;
 import de.janbrodda.shootingticker.server.response.ResponseHandler;
 
 public class InputServlet extends HttpServlet {
+
 	private static final long serialVersionUID = -4076175774959467997L;
 
 	@Override
@@ -61,7 +62,8 @@ public class InputServlet extends HttpServlet {
 		if (competition.remainingSeconds == null) {
 			response.message = "Missing Field - remainingSeconds";
 			validationError = true;
-		} else if (competition.numShots == null || competition.numShots == 0) {
+		} else if (competition.teams.size() > 0
+				&& (competition.numShots == null || competition.numShots == 0)) {
 			response.message = "Missing Field - numShots";
 			validationError = true;
 		}

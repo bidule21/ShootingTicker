@@ -58,6 +58,14 @@ public class App {
     public List<Competition> getRemoteCompetitions() throws IOException {
         return api.loadAllRemoteCompetitions();
     }
+	
+	public void saveCompetition(Competition competition) throws IOException{
+		api.saveCompetition(competition);
+	}
+	
+	public void deleteCompetition(Competition competition) throws IOException{
+		api.deleteCompetition(competition);
+	}
 
     public void selectCompetition(Competition competition) {
         if (competition.id > 0L && competition.numShots > 0) {

@@ -10,7 +10,7 @@ public class Competition {
 	public String name;
 	public int remainingSeconds;
 	public int numShots;
-	public long id;
+	public Long id = null;
 	public long timestamp;
 	public Date date;
 	public List<Team> teams = new ArrayList<>();

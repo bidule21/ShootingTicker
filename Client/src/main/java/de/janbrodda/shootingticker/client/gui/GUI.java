@@ -22,6 +22,8 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -71,6 +73,9 @@ public class GUI extends javax.swing.JFrame {
 		// main form adjustments
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
+
+		numShotsField.setEditable(false);
+		timeField.setEditable(false);
 	}
 
 	public void showPopup(String message) {
@@ -78,7 +83,7 @@ public class GUI extends javax.swing.JFrame {
 	}
 
 	public void executeInBackground(final Runnable runnable) {
-		mainContent.add(loadingPanel, BorderLayout.CENTER);
+		mainContent.add(loadingPanel, 0);
 		mainContent.moveToFront(loadingPanel);
 		mainContent.moveToBack(jTabbedPane1);
 
@@ -123,6 +128,18 @@ public class GUI extends javax.swing.JFrame {
         labelSelectedCompetitionLastChange = new javax.swing.JLabel();
         competitionsPanel = new javax.swing.JPanel();
         competitionsPanelData = new javax.swing.JPanel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        newCompetitionDateDayField = new javax.swing.JTextField();
+        newCompetitionNameField = new javax.swing.JTextField();
+        newCompetitionDateMonthField = new javax.swing.JTextField();
+        newCompetitionDateYearField = new javax.swing.JTextField();
+        jLabel19 = new javax.swing.JLabel();
+        createCompetitionButton = new javax.swing.JButton();
+        newCompetitionDateDayField1 = new javax.swing.JTextField();
+        newCompetitionDateMonthField1 = new javax.swing.JTextField();
+        jLabel20 = new javax.swing.JLabel();
         settingsPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         competitionBasePath = new javax.swing.JTextField();
@@ -164,7 +181,6 @@ public class GUI extends javax.swing.JFrame {
 
         timeField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         timeField.setText("0");
-        timeField.setEnabled(false);
         timeField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 timeFieldActionPerformed(evt);
@@ -172,12 +188,32 @@ public class GUI extends javax.swing.JFrame {
         });
 
         timePlusOneButton.setText("+1");
+        timePlusOneButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                timePlusOneButtonActionPerformed(evt);
+            }
+        });
 
         timePlusTenButton.setText("+10");
+        timePlusTenButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                timePlusTenButtonActionPerformed(evt);
+            }
+        });
 
         timeMinusOneButton.setText("-1");
+        timeMinusOneButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                timeMinusOneButtonActionPerformed(evt);
+            }
+        });
 
         timeMinusTenButton.setText("-10");
+        timeMinusTenButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                timeMinusTenButtonActionPerformed(evt);
+            }
+        });
 
         jLabel11.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel11.setText("Lokaler Wettkampf");
@@ -195,7 +231,6 @@ public class GUI extends javax.swing.JFrame {
 
         numShotsField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         numShotsField.setText("0");
-        numShotsField.setEnabled(false);
 
         shotsPlusTenButton.setText("+10");
         shotsPlusTenButton.addActionListener(new java.awt.event.ActionListener() {
@@ -205,6 +240,11 @@ public class GUI extends javax.swing.JFrame {
         });
 
         shotsMinusTenButton.setText("-10");
+        shotsMinusTenButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                shotsMinusTenButtonActionPerformed(evt);
+            }
+        });
 
         jLabel14.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel14.setText("Ausgewählter Wettkampf:");
@@ -306,13 +346,74 @@ public class GUI extends javax.swing.JFrame {
 
         competitionsPanelData.setLayout(new java.awt.BorderLayout());
 
+        jLabel16.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel16.setText("Neuen Wettkampf anlegen");
+
+        jLabel17.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel17.setText("Datum:");
+
+        jLabel18.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel18.setText("Name:");
+
+        newCompetitionDateDayField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        newCompetitionDateMonthField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        newCompetitionDateYearField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        jLabel19.setText(":");
+
+        createCompetitionButton.setText("<html><center>Wettkampf erstellen</center></html>");
+        createCompetitionButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        createCompetitionButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createCompetitionButtonActionPerformed(evt);
+            }
+        });
+
+        newCompetitionDateDayField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        newCompetitionDateMonthField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        jLabel20.setText("Tag/Monat/Jahr     Stunde/Minute");
+
         javax.swing.GroupLayout competitionsPanelLayout = new javax.swing.GroupLayout(competitionsPanel);
         competitionsPanel.setLayout(competitionsPanelLayout);
         competitionsPanelLayout.setHorizontalGroup(
             competitionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(competitionsPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(competitionsPanelData, javax.swing.GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE)
+                .addGroup(competitionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(competitionsPanelData, javax.swing.GroupLayout.DEFAULT_SIZE, 592, Short.MAX_VALUE)
+                    .addGroup(competitionsPanelLayout.createSequentialGroup()
+                        .addGroup(competitionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel16)
+                            .addGroup(competitionsPanelLayout.createSequentialGroup()
+                                .addGroup(competitionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(competitionsPanelLayout.createSequentialGroup()
+                                        .addComponent(jLabel18)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(newCompetitionNameField))
+                                    .addGroup(competitionsPanelLayout.createSequentialGroup()
+                                        .addComponent(jLabel17)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(competitionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel20)
+                                            .addGroup(competitionsPanelLayout.createSequentialGroup()
+                                                .addComponent(newCompetitionDateDayField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(newCompetitionDateMonthField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(newCompetitionDateYearField, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(newCompetitionDateDayField1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(4, 4, 4)
+                                                .addComponent(jLabel19)
+                                                .addGap(4, 4, 4)
+                                                .addComponent(newCompetitionDateMonthField1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(createCompetitionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         competitionsPanelLayout.setVerticalGroup(
@@ -320,7 +421,29 @@ public class GUI extends javax.swing.JFrame {
             .addGroup(competitionsPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(competitionsPanelData, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(204, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel16)
+                .addGroup(competitionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(competitionsPanelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(competitionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel18)
+                            .addComponent(newCompetitionNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(competitionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel17)
+                            .addComponent(newCompetitionDateDayField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(newCompetitionDateMonthField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(newCompetitionDateYearField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(newCompetitionDateDayField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(newCompetitionDateMonthField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel19)))
+                    .addGroup(competitionsPanelLayout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(createCompetitionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel20)
+                .addContainerGap(75, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Wettkämpfe verwalten", competitionsPanel);
@@ -407,7 +530,7 @@ public class GUI extends javax.swing.JFrame {
                         .addGroup(settingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(settingsPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel10)
-                                .addGap(41, 41, 41)
+                                .addGap(54, 54, 54)
                                 .addComponent(apiKey))
                             .addGroup(settingsPanelLayout.createSequentialGroup()
                                 .addGroup(settingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -427,7 +550,7 @@ public class GUI extends javax.swing.JFrame {
                                         .addComponent(proxyPort, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(settingsPanelLayout.createSequentialGroup()
                                         .addComponent(useProxy)
-                                        .addGap(0, 395, Short.MAX_VALUE)))))
+                                        .addGap(0, 319, Short.MAX_VALUE)))))
                         .addContainerGap())))
         );
         settingsPanelLayout.setVerticalGroup(
@@ -545,7 +668,14 @@ public class GUI extends javax.swing.JFrame {
 									== JOptionPane.YES_OPTION;
 
 							if (deleteConfirmed) {
-								((DefaultTableModel) table.getModel()).removeRow(modelRow);
+								try {
+									app.deleteCompetition(competition);
+									((DefaultTableModel) table.getModel()).removeRow(modelRow);
+									competitions.remove(modelRow);
+								} catch (IOException ex) {
+									Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+									showPopup("Can't delete Competition from Server");
+								}
 							}
 						}
 					};
@@ -695,6 +825,58 @@ public class GUI extends javax.swing.JFrame {
 		}
     }//GEN-LAST:event_localCompetitionDropdownItemStateChanged
 
+    private void shotsMinusTenButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_shotsMinusTenButtonActionPerformed
+		int value = Integer.parseInt(numShotsField.getText());
+		numShotsField.setText((value - 10) + "");
+    }//GEN-LAST:event_shotsMinusTenButtonActionPerformed
+
+    private void timePlusTenButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timePlusTenButtonActionPerformed
+		int value = Integer.parseInt(timeField.getText());
+		timeField.setText((value + 10) + "");
+    }//GEN-LAST:event_timePlusTenButtonActionPerformed
+
+    private void timeMinusTenButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timeMinusTenButtonActionPerformed
+		int value = Integer.parseInt(timeField.getText());
+		timeField.setText((value - 10) + "");
+     }//GEN-LAST:event_timeMinusTenButtonActionPerformed
+
+    private void timePlusOneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timePlusOneButtonActionPerformed
+		int value = Integer.parseInt(timeField.getText());
+		timeField.setText((value + 1) + "");
+     }//GEN-LAST:event_timePlusOneButtonActionPerformed
+
+    private void timeMinusOneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timeMinusOneButtonActionPerformed
+		int value = Integer.parseInt(timeField.getText());
+		timeField.setText((value - 1) + "");
+     }//GEN-LAST:event_timeMinusOneButtonActionPerformed
+
+    private void createCompetitionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createCompetitionButtonActionPerformed
+		int year = Integer.parseInt(newCompetitionDateYearField.getText());
+		int month = Integer.parseInt(newCompetitionDateMonthField.getText());
+		int day = Integer.parseInt(newCompetitionDateDayField.getText());
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(year, month - 1, day, 0, 0, 0);
+		Date date = calendar.getTime();
+
+		final Competition competition = new Competition();
+		competition.name = newCompetitionNameField.getText();
+		competition.date = date;
+		competition.numShots = 0;
+
+		executeInBackground(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					app.saveCompetition(competition);
+					panelChangedToCompetitions();
+				} catch (IOException ex) {
+					Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+					showPopup("Can't send Competition to Server");
+				}
+			}
+		});
+    }//GEN-LAST:event_createCompetitionButtonActionPerformed
+
 	/**
 	 * @param args the command line arguments
 	 */
@@ -738,6 +920,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JTextField competitionBasePath;
     private javax.swing.JPanel competitionsPanel;
     private javax.swing.JPanel competitionsPanelData;
+    private javax.swing.JButton createCompetitionButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -745,7 +928,12 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -757,6 +945,12 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel labelSelectedCompetitionLastChange;
     private javax.swing.JComboBox localCompetitionDropdown;
     private javax.swing.JLayeredPane mainContent;
+    private javax.swing.JTextField newCompetitionDateDayField;
+    private javax.swing.JTextField newCompetitionDateDayField1;
+    private javax.swing.JTextField newCompetitionDateMonthField;
+    private javax.swing.JTextField newCompetitionDateMonthField1;
+    private javax.swing.JTextField newCompetitionDateYearField;
+    private javax.swing.JTextField newCompetitionNameField;
     private javax.swing.JTextField numShotsField;
     private javax.swing.JTextField proxyHost;
     private javax.swing.JPasswordField proxyPass;

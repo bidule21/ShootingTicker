@@ -74,17 +74,22 @@
                                   </Group>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="numShotsField" min="-2" pref="57" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" attributes="0">
+                                  <Component id="startUploadButton" min="-2" pref="105" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="1" attributes="0">
                                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                                          <Component id="timeMinutesField" min="-2" pref="23" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="timeField" min="-2" pref="57" max="-2" attributes="0"/>
+                                          <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                                          <Component id="timeSecondsField" min="-2" pref="23" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                                          <Component id="numShotsField" min="-2" pref="57" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -111,7 +116,7 @@
                                   <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="labelSelectedCompetitionLastChange" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="74" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="130" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -132,34 +137,36 @@
                               <Component id="remoteCompetitionDropdown" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="timeField" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="numShotsField" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="timePlusTenButton" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="timeMinusTenButton" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="timePlusOneButton" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="timeMinusOneButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                                          <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="timeMinutesField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="timeSecondsField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel21" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="shotsPlusTenButton" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="shotsMinusTenButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                                          <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="numShotsField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
-                                  <EmptySpace min="1" pref="1" max="-2" attributes="0"/>
+                                  <EmptySpace pref="81" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Component id="startUploadButton" min="-2" pref="62" max="-2" attributes="0"/>
+                                  <EmptySpace pref="71" max="32767" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="51" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -183,13 +190,13 @@
                     <Property name="text" type="java.lang.String" value="Verbleibende Zeit (Minuten):"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="timeField">
+                <Component class="javax.swing.JTextField" name="timeMinutesField">
                   <Properties>
                     <Property name="horizontalAlignment" type="int" value="0"/>
                     <Property name="text" type="java.lang.String" value="0"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="timeFieldActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="timeMinutesFieldActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="timePlusOneButton">
@@ -295,6 +302,29 @@
                     <Property name="text" type="java.lang.String" value="                                                             "/>
                   </Properties>
                 </Component>
+                <Component class="javax.swing.JButton" name="startUploadButton">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;center&gt;Wettkampf starten!&lt;/center&gt;&lt;/html&gt;"/>
+                    <Property name="horizontalTextPosition" type="int" value="0"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="startUploadButtonActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JTextField" name="timeSecondsField">
+                  <Properties>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="text" type="java.lang.String" value="0"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="timeSecondsFieldActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel21">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value=":"/>
+                  </Properties>
+                </Component>
               </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="competitionsPanel">
@@ -335,11 +365,11 @@
                                                           <EmptySpace max="-2" attributes="0"/>
                                                           <Component id="newCompetitionDateYearField" min="-2" pref="53" max="-2" attributes="0"/>
                                                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                          <Component id="newCompetitionDateDayField1" min="-2" pref="35" max="-2" attributes="0"/>
+                                                          <Component id="newCompetitionDateHourField" min="-2" pref="35" max="-2" attributes="0"/>
                                                           <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                                                           <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
                                                           <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                                                          <Component id="newCompetitionDateMonthField1" min="-2" pref="35" max="-2" attributes="0"/>
+                                                          <Component id="newCompetitionDateMinuteField" min="-2" pref="35" max="-2" attributes="0"/>
                                                       </Group>
                                                   </Group>
                                               </Group>
@@ -375,8 +405,8 @@
                                       <Component id="newCompetitionDateDayField" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="newCompetitionDateMonthField" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="newCompetitionDateYearField" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="newCompetitionDateDayField1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="newCompetitionDateMonthField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="newCompetitionDateHourField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="newCompetitionDateMinuteField" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel19" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -452,12 +482,12 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="createCompetitionButtonActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JTextField" name="newCompetitionDateDayField1">
+                <Component class="javax.swing.JTextField" name="newCompetitionDateHourField">
                   <Properties>
                     <Property name="horizontalAlignment" type="int" value="0"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="newCompetitionDateMonthField1">
+                <Component class="javax.swing.JTextField" name="newCompetitionDateMinuteField">
                   <Properties>
                     <Property name="horizontalAlignment" type="int" value="0"/>
                   </Properties>
@@ -545,7 +575,7 @@
                                               </Group>
                                               <Group type="102" attributes="0">
                                                   <Component id="useProxy" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace min="0" pref="319" max="32767" attributes="0"/>
+                                                  <EmptySpace min="0" pref="395" max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
                                       </Group>

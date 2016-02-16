@@ -139,34 +139,35 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="timePlusTenButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="timeMinusTenButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="timePlusOneButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="timeMinusOneButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                                           <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="timeMinutesField" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="timeSecondsField" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel21" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="timePlusTenButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="timeMinusTenButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="timePlusOneButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="timeMinusOneButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="shotsPlusTenButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="shotsMinusTenButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                                           <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="numShotsField" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="shotsPlusTenButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="shotsMinusTenButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
-                                  <EmptySpace pref="81" max="32767" attributes="0"/>
                               </Group>
-                              <Group type="102" attributes="0">
-                                  <Component id="startUploadButton" min="-2" pref="62" max="-2" attributes="0"/>
-                                  <EmptySpace pref="71" max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="startUploadButton" min="-2" pref="62" max="-2" attributes="0"/>
                           </Group>
+                          <EmptySpace pref="71" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -551,7 +552,7 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
                                           <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                                           <Component id="apiKey" max="32767" attributes="0"/>
                                       </Group>
                                       <Group type="102" attributes="0">

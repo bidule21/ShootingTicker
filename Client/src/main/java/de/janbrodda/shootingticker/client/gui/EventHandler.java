@@ -1,6 +1,7 @@
 package de.janbrodda.shootingticker.client.gui;
 
 import de.janbrodda.shootingticker.client.app.App;
+import de.janbrodda.shootingticker.client.app.FolderData;
 import de.janbrodda.shootingticker.client.data.Competition;
 import de.janbrodda.shootingticker.client.settings.Settings;
 import de.janbrodda.shootingticker.client.settings.SettingsValidator;
@@ -9,12 +10,15 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.AbstractAction;
@@ -32,13 +36,36 @@ public class EventHandler {
 
 	private final GUI_dev gui;
 	private final App app = App.get();
+	private Timer timer;
+	private final TimerTask competitionTimeUpdater = new TimerTask() {
+		@Override
+		public void run() {
+			int time = getCompetitionUploadTime();
+			setCompetitionUploadTime(time - 1);
+		}
+	};
 
 	public EventHandler(GUI_dev gui) {
 		this.gui = gui;
 	}
 
 	public void init() {
-		setCompetitionUploadTime(200);
+		app.uploadStartedHandlers.add(new Runnable() {
+			@Override
+			public void run() {
+				applicationStartedUploading();
+			}
+		});
+		app.uploadStoppedHandlers.add(new Runnable() {
+			@Override
+			public void run() {
+				applicationStoppedUploading();
+			}
+		});
+
+		applicationStoppedUploading();
+		applicationStartedUploading();
+		blockForm();
 	}
 
 	private void invokeLater(final Runnable runnable) {
@@ -50,6 +77,14 @@ public class EventHandler {
 		}.start();
 
 		//SwingUtilities.invokeLater(runnable);
+	}
+
+	public void changeCompetitionUploadTime(int change) {
+		int oldTime = getCompetitionUploadTime();
+		int newTime = oldTime + change * 60;
+		int newTimeRounded = (int) Math.floor(newTime / 60) * 60;
+
+		setCompetitionUploadTime(newTimeRounded);
 	}
 
 	public void saveSettingsButtonPressed() {
@@ -131,6 +166,59 @@ public class EventHandler {
 		gui.proxyPass.setEnabled(checked);
 	}
 
+	public void startCompetitionUploadButtonPressed() {
+		ComboboxItem<Competition> selectedCompetitionItem = (ComboboxItem<Competition>) gui.remoteCompetitionDropdown.getSelectedItem();
+		ComboboxItem<File> selectedFileItem = (ComboboxItem<File>) gui.localCompetitionDropdown.getSelectedItem();
+
+		int numShots = Integer.parseInt(gui.competitionNumShots.getText());
+		int remainingSeconds = getCompetitionUploadTime();
+
+		if (selectedCompetitionItem != null && selectedFileItem != null && remainingSeconds > 0 && numShots > 0) {
+
+			Competition competition = selectedCompetitionItem.value;
+			competition.numShots = numShots;
+			competition.remainingSeconds = remainingSeconds;
+			app.selectRemoteCompetition(competition);
+
+			File selectedFile = selectedFileItem.value;
+			app.selectLocalCompetitionFolder(selectedFile);
+
+			app.startCompetitionUpload();
+		} else {
+			//showPopup("Please Input all necessary Data..");
+		}
+	}
+
+	public void stopCompetitionUploadButtonPressed() {
+		//TODO
+	}
+
+	private void applicationStartedUploading() {
+		gui.startCompetitionUploadButton.setVisible(false);
+		gui.stopCompetitionUploadButton.setVisible(true);
+		startUploadTimer();
+	}
+
+	private void applicationStoppedUploading() {
+		gui.startCompetitionUploadButton.setVisible(true);
+		gui.stopCompetitionUploadButton.setVisible(false);
+		stopUploadTimer();
+	}
+
+	private void startUploadTimer() {
+		if (timer == null) {
+			timer = new Timer();
+			timer.scheduleAtFixedRate(competitionTimeUpdater, 0L, 1000L);
+		}
+	}
+
+	private void stopUploadTimer() {
+		if (timer != null) {
+			timer.cancel();
+			timer = null;
+		}
+	}
+
 	private int getCompetitionUploadTime() {
 		int minutes = Integer.parseInt(gui.competitionTimeMinutes.getText());
 		int seconds = Integer.parseInt(gui.competitionTimeSeconds.getText());
@@ -147,7 +235,27 @@ public class EventHandler {
 	}
 
 	private void refreshUploadTab() {
+		try {
+			gui.remoteCompetitionDropdown.removeAllItems();
+			for (Competition competition : app.getRemoteCompetitions()) {
+				gui.remoteCompetitionDropdown.addItem(new ComboboxItem<>(competition.name, competition));
+			}
+		} catch (IOException ex) {
+			//showPopup("Can't load Competitions from Server");
+			Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+		}
 
+		try {
+			List<FolderData> localFolders = app.getAvailableFolders();
+			gui.localCompetitionDropdown.removeAllItems();
+
+			for (FolderData localFolder : localFolders) {
+				ComboboxItem<File> item = new ComboboxItem<>(localFolder.name, localFolder.file);
+				gui.localCompetitionDropdown.addItem(item);
+			}
+		} catch (NullPointerException e) {
+			//showPopup("Can't load Competitions from Disk");
+		}
 	}
 
 	private void refreshManageTab() {
@@ -205,8 +313,10 @@ public class EventHandler {
 						try {
 							app.deleteCompetition(competition);
 							selectedTabChanged(gui.managePanel);
+
 						} catch (IOException ex) {
-							Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+							Logger.getLogger(GUI.class
+									.getName()).log(Level.SEVERE, null, ex);
 							//showPopup("Can't delete Competition from Server");
 							//TODO
 						}
@@ -219,9 +329,11 @@ public class EventHandler {
 
 			JScrollPane container = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 			gui.managePanelCompetitionListPanel.add(container);
+
 		} catch (IOException ex) {
 			//showPopup("Can't load Competitions from Server");
-			Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(GUI.class
+					.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
 

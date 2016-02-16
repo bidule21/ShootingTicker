@@ -12,12 +12,13 @@ import javax.swing.JPanel;
  * @author broddaja
  */
 public class GUI_dev extends javax.swing.JFrame {
-
+	
 	private final EventHandler event = new EventHandler(this);
-
+	
 	public GUI_dev() {
 		initComponents();
 		event.init();
+		this.setLocationRelativeTo(null);
 
 		// limit textfield lengths
 		newCompetitionDateDayField.setDocument(new JTextFieldLimit((2)));
@@ -25,12 +26,12 @@ public class GUI_dev extends javax.swing.JFrame {
 		newCompetitionDateYearField.setDocument(new JTextFieldLimit((4)));
 		newCompetitionDateHourField.setDocument(new JTextFieldLimit((2)));
 		newCompetitionDateMinuteField.setDocument(new JTextFieldLimit((2)));
-
+		
 		competitionTimeMinutes.setEditable(false);
 		competitionNumShots.setEditable(false);
 		competitionTimeSeconds.setEditable(false);
 	}
-
+	
 	@SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -41,18 +42,21 @@ public class GUI_dev extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
-        jComboBox2 = new javax.swing.JComboBox();
+        remoteCompetitionDropdown = new javax.swing.JComboBox();
+        localCompetitionDropdown = new javax.swing.JComboBox();
         competitionTimeMinutes = new javax.swing.JTextField();
         competitionNumShots = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btnTimePlusTen = new javax.swing.JButton();
+        btnTimeMinusTen = new javax.swing.JButton();
+        btnTimePlusOne = new javax.swing.JButton();
+        btnTimeMinusOne = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
         competitionTimeSeconds = new javax.swing.JTextField();
+        startCompetitionUploadButton = new javax.swing.JButton();
+        stopCompetitionUploadButton = new javax.swing.JButton();
+        jLabel22 = new javax.swing.JLabel();
         managePanel = new javax.swing.JPanel();
         managePanelCompetitionListPanel = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
@@ -100,107 +104,168 @@ public class GUI_dev extends javax.swing.JFrame {
         });
 
         java.awt.GridBagLayout uploadPanelLayout = new java.awt.GridBagLayout();
+        uploadPanelLayout.columnWidths = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        uploadPanelLayout.rowHeights = new int[] {0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0};
         uploadPanelLayout.columnWeights = new double[] {1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0};
         uploadPanel.setLayout(uploadPanelLayout);
 
         jLabel12.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        jLabel12.setText("Lokaler Wettkampf");
-        uploadPanel.add(jLabel12, new java.awt.GridBagConstraints());
+        jLabel12.setText("Server Wettkampf");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        uploadPanel.add(jLabel12, gridBagConstraints);
 
         jLabel13.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel13.setText("Lokaler Wettkampf");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 4;
         uploadPanel.add(jLabel13, gridBagConstraints);
 
         jLabel14.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        jLabel14.setText("Lokaler Wettkampf");
+        jLabel14.setText("Wettkampf Info");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 20;
         uploadPanel.add(jLabel14, gridBagConstraints);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 13;
+        gridBagConstraints.gridwidth = 25;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        uploadPanel.add(jComboBox1, gridBagConstraints);
+        uploadPanel.add(remoteCompetitionDropdown, gridBagConstraints);
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 13;
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 25;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        uploadPanel.add(jComboBox2, gridBagConstraints);
+        uploadPanel.add(localCompetitionDropdown, gridBagConstraints);
 
-        competitionTimeMinutes.setPreferredSize(new java.awt.Dimension(30, 20));
+        competitionTimeMinutes.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        competitionTimeMinutes.setText("0");
+        competitionTimeMinutes.setPreferredSize(new java.awt.Dimension(30, 25));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridx = 8;
+        gridBagConstraints.gridy = 8;
         gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         uploadPanel.add(competitionTimeMinutes, gridBagConstraints);
 
-        competitionNumShots.setPreferredSize(new java.awt.Dimension(30, 20));
+        competitionNumShots.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        competitionNumShots.setText("0");
+        competitionNumShots.setPreferredSize(new java.awt.Dimension(30, 25));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridx = 8;
+        gridBagConstraints.gridy = 12;
         gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         uploadPanel.add(competitionNumShots, gridBagConstraints);
 
         jLabel1.setText("Wettkampf-Zeit:");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 8;
         gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
         uploadPanel.add(jLabel1, gridBagConstraints);
 
         jLabel6.setText("Anzahl Schüsse:");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 12;
         gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
         uploadPanel.add(jLabel6, gridBagConstraints);
 
-        jButton2.setText("+10");
+        btnTimePlusTen.setText("+10");
+        btnTimePlusTen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimePlusTenActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 7;
-        gridBagConstraints.gridy = 2;
-        uploadPanel.add(jButton2, gridBagConstraints);
+        gridBagConstraints.gridx = 16;
+        gridBagConstraints.gridy = 8;
+        uploadPanel.add(btnTimePlusTen, gridBagConstraints);
 
-        jButton3.setText("-10");
+        btnTimeMinusTen.setText("-10");
+        btnTimeMinusTen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimeMinusTenActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 8;
-        gridBagConstraints.gridy = 2;
-        uploadPanel.add(jButton3, gridBagConstraints);
+        gridBagConstraints.gridx = 18;
+        gridBagConstraints.gridy = 8;
+        uploadPanel.add(btnTimeMinusTen, gridBagConstraints);
 
-        jButton4.setText("+1");
+        btnTimePlusOne.setText("+1");
+        btnTimePlusOne.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimePlusOneActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 9;
-        gridBagConstraints.gridy = 2;
-        uploadPanel.add(jButton4, gridBagConstraints);
+        gridBagConstraints.gridx = 20;
+        gridBagConstraints.gridy = 8;
+        uploadPanel.add(btnTimePlusOne, gridBagConstraints);
 
-        jButton5.setText("-1");
+        btnTimeMinusOne.setText("-1");
+        btnTimeMinusOne.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimeMinusOneActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 10;
-        gridBagConstraints.gridy = 2;
-        uploadPanel.add(jButton5, gridBagConstraints);
+        gridBagConstraints.gridx = 22;
+        gridBagConstraints.gridy = 8;
+        uploadPanel.add(btnTimeMinusOne, gridBagConstraints);
 
         jLabel15.setText(":");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridx = 10;
+        gridBagConstraints.gridy = 8;
         uploadPanel.add(jLabel15, gridBagConstraints);
 
-        competitionTimeSeconds.setPreferredSize(new java.awt.Dimension(30, 20));
+        competitionTimeSeconds.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        competitionTimeSeconds.setText("0");
+        competitionTimeSeconds.setPreferredSize(new java.awt.Dimension(30, 25));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 5;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridx = 12;
+        gridBagConstraints.gridy = 8;
         gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         uploadPanel.add(competitionTimeSeconds, gridBagConstraints);
+
+        startCompetitionUploadButton.setText("Wettkampf starten");
+        startCompetitionUploadButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                startCompetitionUploadButtonActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        uploadPanel.add(startCompetitionUploadButton, gridBagConstraints);
+
+        stopCompetitionUploadButton.setText("Wettkampf stoppen");
+        stopCompetitionUploadButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                stopCompetitionUploadButtonActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 12;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        uploadPanel.add(stopCompetitionUploadButton, gridBagConstraints);
+
+        jLabel22.setText("    ");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 8;
+        uploadPanel.add(jLabel22, gridBagConstraints);
 
         mainContentTab.addTab("Wettkampf hochladen", uploadPanel);
 
@@ -491,6 +556,30 @@ public class GUI_dev extends javax.swing.JFrame {
 		event.saveSettingsButtonPressed();
     }//GEN-LAST:event_btnSaveSettingsActionPerformed
 
+    private void startCompetitionUploadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startCompetitionUploadButtonActionPerformed
+		event.startCompetitionUploadButtonPressed();
+    }//GEN-LAST:event_startCompetitionUploadButtonActionPerformed
+
+    private void stopCompetitionUploadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stopCompetitionUploadButtonActionPerformed
+		event.stopCompetitionUploadButtonPressed();
+    }//GEN-LAST:event_stopCompetitionUploadButtonActionPerformed
+
+    private void btnTimePlusTenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimePlusTenActionPerformed
+		event.changeCompetitionUploadTime(+10);
+    }//GEN-LAST:event_btnTimePlusTenActionPerformed
+
+    private void btnTimeMinusTenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimeMinusTenActionPerformed
+		event.changeCompetitionUploadTime(-10);
+    }//GEN-LAST:event_btnTimeMinusTenActionPerformed
+
+    private void btnTimePlusOneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimePlusOneActionPerformed
+		event.changeCompetitionUploadTime(+1);
+    }//GEN-LAST:event_btnTimePlusOneActionPerformed
+
+    private void btnTimeMinusOneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimeMinusOneActionPerformed
+		event.changeCompetitionUploadTime(-1);
+    }//GEN-LAST:event_btnTimeMinusOneActionPerformed
+	
 	public static void main(String args[]) {
 		/* Set the Nimbus look and feel */
 		//<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -514,9 +603,6 @@ public class GUI_dev extends javax.swing.JFrame {
 			java.util.logging.Logger.getLogger(GUI_dev.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 		}
 		//</editor-fold>
-		//</editor-fold>
-		//</editor-fold>
-		//</editor-fold>
 
 		/* Create and display the form */
 		java.awt.EventQueue.invokeLater(new Runnable() {
@@ -530,18 +616,16 @@ public class GUI_dev extends javax.swing.JFrame {
     public javax.swing.JTextField apiKey;
     public javax.swing.JTextField apiUrl;
     public javax.swing.JButton btnSaveSettings;
+    public javax.swing.JButton btnTimeMinusOne;
+    public javax.swing.JButton btnTimeMinusTen;
+    public javax.swing.JButton btnTimePlusOne;
+    public javax.swing.JButton btnTimePlusTen;
     public javax.swing.JTextField competitionBasePath;
     public javax.swing.JTextField competitionNumShots;
     public javax.swing.JTextField competitionTimeMinutes;
     public javax.swing.JTextField competitionTimeSeconds;
     public javax.swing.JButton createCompetitionButton;
     public javax.swing.JButton jButton1;
-    public javax.swing.JButton jButton2;
-    public javax.swing.JButton jButton3;
-    public javax.swing.JButton jButton4;
-    public javax.swing.JButton jButton5;
-    public javax.swing.JComboBox jComboBox1;
-    public javax.swing.JComboBox jComboBox2;
     public javax.swing.JLabel jLabel1;
     public javax.swing.JLabel jLabel10;
     public javax.swing.JLabel jLabel11;
@@ -556,6 +640,7 @@ public class GUI_dev extends javax.swing.JFrame {
     public javax.swing.JLabel jLabel2;
     public javax.swing.JLabel jLabel20;
     public javax.swing.JLabel jLabel21;
+    public javax.swing.JLabel jLabel22;
     public javax.swing.JLabel jLabel3;
     public javax.swing.JLabel jLabel4;
     public javax.swing.JLabel jLabel5;
@@ -565,6 +650,7 @@ public class GUI_dev extends javax.swing.JFrame {
     public javax.swing.JLabel jLabel9;
     public javax.swing.JSeparator jSeparator1;
     public javax.swing.JSeparator jSeparator2;
+    public javax.swing.JComboBox localCompetitionDropdown;
     public javax.swing.JTabbedPane mainContentTab;
     public javax.swing.JPanel managePanel;
     public javax.swing.JPanel managePanelCompetitionListPanel;
@@ -578,7 +664,10 @@ public class GUI_dev extends javax.swing.JFrame {
     public javax.swing.JPasswordField proxyPass;
     public javax.swing.JTextField proxyPort;
     public javax.swing.JTextField proxyUser;
+    public javax.swing.JComboBox remoteCompetitionDropdown;
     public javax.swing.JPanel settingsPanel;
+    public javax.swing.JButton startCompetitionUploadButton;
+    public javax.swing.JButton stopCompetitionUploadButton;
     public javax.swing.JPanel uploadPanel;
     public javax.swing.JCheckBox useProxy;
     // End of variables declaration//GEN-END:variables

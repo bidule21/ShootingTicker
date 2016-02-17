@@ -745,7 +745,7 @@ public class GUI extends javax.swing.JFrame {
 						}
 					};
 					
-					ButtonColumn buttonColumn = new ButtonColumn(table, delete, columnNames.length - 1);
+					JTableButtonColumn buttonColumn = new JTableButtonColumn(table, delete, columnNames.length - 1);
 					buttonColumn.setMnemonic(KeyEvent.VK_D);
 					
 					JScrollPane container = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);

@@ -21,11 +21,11 @@ public class GUI_dev extends javax.swing.JFrame {
 		this.setLocationRelativeTo(null);
 
 		// limit textfield lengths
-		newCompetitionDateDayField.setDocument(new JTextFieldLimit((2)));
-		newCompetitionDateMonthField.setDocument(new JTextFieldLimit((2)));
-		newCompetitionDateYearField.setDocument(new JTextFieldLimit((4)));
-		newCompetitionDateHourField.setDocument(new JTextFieldLimit((2)));
-		newCompetitionDateMinuteField.setDocument(new JTextFieldLimit((2)));
+		newCompetitionDateDayField.setDocument(new JTextFieldLengthLimit((2)));
+		newCompetitionDateMonthField.setDocument(new JTextFieldLengthLimit((2)));
+		newCompetitionDateYearField.setDocument(new JTextFieldLengthLimit((4)));
+		newCompetitionDateHourField.setDocument(new JTextFieldLengthLimit((2)));
+		newCompetitionDateMinuteField.setDocument(new JTextFieldLengthLimit((2)));
 		
 		competitionTimeMinutes.setEditable(false);
 		competitionNumShots.setEditable(false);

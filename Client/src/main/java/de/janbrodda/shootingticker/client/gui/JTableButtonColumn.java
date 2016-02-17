@@ -17,7 +17,7 @@ import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
-public final class ButtonColumn extends AbstractCellEditor
+public final class JTableButtonColumn extends AbstractCellEditor
         implements TableCellRenderer, TableCellEditor, ActionListener, MouseListener {
 
     private JTable table;
@@ -40,7 +40,7 @@ public final class ButtonColumn extends AbstractCellEditor
      * @param action the Action to be invoked when the button is invoked
      * @param column the column to which the button renderer/editor is added
      */
-    public ButtonColumn(JTable table, Action action, int column) {
+    public JTableButtonColumn(JTable table, Action action, int column) {
         this.table = table;
         this.action = action;
 

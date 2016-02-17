@@ -13,7 +13,7 @@
     <properties>
         <app.id>shootingticker</app.id>
         <app.version>1</app.version>
-        <appengine.version>1.9.32</appengine.version>
+        <appengine.version>1.9.31</appengine.version> <!-- 1.9.32 --> 
         <gcloud.plugin.version>2.0.9.92.v20160118</gcloud.plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>

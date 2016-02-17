@@ -12,7 +12,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -25,10 +24,8 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import org.apache.commons.lang3.StringUtils;
 
@@ -102,10 +99,10 @@ public class EventHandler {
 
 		ValidationResult validationResult = SettingsValidator.validate(s);
 		if (!validationResult.isValid) {
-			JOptionPane.showMessageDialog(gui, validationResult.message);
+			showWarningPopup(validationResult.message);
 		} else {
 			s.save();
-			JOptionPane.showMessageDialog(gui, "Settings saved");
+			showInfoPopup("Settings saved");
 		}
 	}
 
@@ -132,7 +129,7 @@ public class EventHandler {
 					selectedTabChanged(gui.managePanel);
 				} catch (IOException ex) {
 					Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
-					//showPopup("Can't send Competition to Server");
+					showWarningPopup("Can't send Competition to Server");
 				}
 			}
 		});
@@ -185,12 +182,28 @@ public class EventHandler {
 
 			app.startCompetitionUpload();
 		} else {
-			//showPopup("Please Input all necessary Data..");
+			showWarningPopup("Please Input all necessary Data..");
 		}
 	}
 
 	public void stopCompetitionUploadButtonPressed() {
 		//TODO
+	}
+
+	private void showInfoPopup(String message) {
+		JOptionPane.showMessageDialog(gui, message, "", JOptionPane.INFORMATION_MESSAGE);
+	}
+
+	private void showWarningPopup(String message) {
+		JOptionPane.showMessageDialog(gui, message, "", JOptionPane.WARNING_MESSAGE);
+	}
+
+	private boolean showConfirmPopup(String message) {
+		return JOptionPane.showConfirmDialog(gui,
+				message,
+				"",
+				JOptionPane.YES_NO_OPTION)
+				== JOptionPane.YES_OPTION;
 	}
 
 	private void applicationStartedUploading() {
@@ -241,7 +254,7 @@ public class EventHandler {
 				gui.remoteCompetitionDropdown.addItem(new ComboboxItem<>(competition.name, competition));
 			}
 		} catch (IOException ex) {
-			//showPopup("Can't load Competitions from Server");
+			showWarningPopup("Can't load Competitions from Server");
 			Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
 		}
 
@@ -254,7 +267,7 @@ public class EventHandler {
 				gui.localCompetitionDropdown.addItem(item);
 			}
 		} catch (NullPointerException e) {
-			//showPopup("Can't load Competitions from Disk");
+			showWarningPopup("Can't load Competitions from Disk");
 		}
 	}
 
@@ -302,12 +315,7 @@ public class EventHandler {
 					int modelRow = Integer.valueOf(e.getActionCommand());
 					Competition competition = competitions.get(modelRow);
 
-					boolean deleteConfirmed
-							= JOptionPane.showConfirmDialog(gui,
-									"Wettkampf <" + competition.name + "> löschen?",
-									"",
-									JOptionPane.YES_NO_OPTION)
-							== JOptionPane.YES_OPTION;
+					boolean deleteConfirmed = showConfirmPopup("Wettkampf <" + competition.name + "> löschen?");
 
 					if (deleteConfirmed) {
 						try {
@@ -317,21 +325,20 @@ public class EventHandler {
 						} catch (IOException ex) {
 							Logger.getLogger(GUI.class
 									.getName()).log(Level.SEVERE, null, ex);
-							//showPopup("Can't delete Competition from Server");
-							//TODO
+							showWarningPopup("Can't delete Competition from Server");
 						}
 					}
 				}
 			};
 
-			ButtonColumn buttonColumn = new ButtonColumn(table, delete, columnNames.length - 1);
+			JTableButtonColumn buttonColumn = new JTableButtonColumn(table, delete, columnNames.length - 1);
 			buttonColumn.setMnemonic(KeyEvent.VK_D);
 
 			JScrollPane container = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 			gui.managePanelCompetitionListPanel.add(container);
 
 		} catch (IOException ex) {
-			//showPopup("Can't load Competitions from Server");
+			showWarningPopup("Can't load Competitions from Server");
 			Logger.getLogger(GUI.class
 					.getName()).log(Level.SEVERE, null, ex);
 		}

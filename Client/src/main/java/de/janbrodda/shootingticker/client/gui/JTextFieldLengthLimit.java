@@ -4,10 +4,10 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
 
-public class JTextFieldLimit extends PlainDocument {
+public class JTextFieldLengthLimit extends PlainDocument {
   private final int limit;
 
-  JTextFieldLimit(int limit) {
+  JTextFieldLengthLimit(int limit) {
    super();
    this.limit = limit;
    }

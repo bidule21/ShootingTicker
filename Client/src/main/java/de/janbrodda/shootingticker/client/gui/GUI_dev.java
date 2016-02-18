@@ -12,9 +12,9 @@ import javax.swing.JPanel;
  * @author broddaja
  */
 public class GUI_dev extends javax.swing.JFrame {
-	
+
 	private final EventHandler event = new EventHandler(this);
-	
+
 	public GUI_dev() {
 		initComponents();
 		event.init();
@@ -26,12 +26,13 @@ public class GUI_dev extends javax.swing.JFrame {
 		newCompetitionDateYearField.setDocument(new JTextFieldLengthLimit((4)));
 		newCompetitionDateHourField.setDocument(new JTextFieldLengthLimit((2)));
 		newCompetitionDateMinuteField.setDocument(new JTextFieldLengthLimit((2)));
-		
+
+		// set integer fields readonly
 		competitionTimeMinutes.setEditable(false);
 		competitionNumShots.setEditable(false);
 		competitionTimeSeconds.setEditable(false);
 	}
-	
+
 	@SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -57,6 +58,8 @@ public class GUI_dev extends javax.swing.JFrame {
         startCompetitionUploadButton = new javax.swing.JButton();
         stopCompetitionUploadButton = new javax.swing.JButton();
         jLabel22 = new javax.swing.JLabel();
+        btnShotsMinusTen = new javax.swing.JButton();
+        btnShotsPlusTen = new javax.swing.JButton();
         managePanel = new javax.swing.JPanel();
         managePanelCompetitionListPanel = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
@@ -266,6 +269,28 @@ public class GUI_dev extends javax.swing.JFrame {
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 8;
         uploadPanel.add(jLabel22, gridBagConstraints);
+
+        btnShotsMinusTen.setText("-10");
+        btnShotsMinusTen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnShotsMinusTenActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 18;
+        gridBagConstraints.gridy = 12;
+        uploadPanel.add(btnShotsMinusTen, gridBagConstraints);
+
+        btnShotsPlusTen.setText("+10");
+        btnShotsPlusTen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnShotsPlusTenActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 16;
+        gridBagConstraints.gridy = 12;
+        uploadPanel.add(btnShotsPlusTen, gridBagConstraints);
 
         mainContentTab.addTab("Wettkampf hochladen", uploadPanel);
 
@@ -579,7 +604,15 @@ public class GUI_dev extends javax.swing.JFrame {
     private void btnTimeMinusOneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimeMinusOneActionPerformed
 		event.changeCompetitionUploadTime(-1);
     }//GEN-LAST:event_btnTimeMinusOneActionPerformed
-	
+
+    private void btnShotsMinusTenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShotsMinusTenActionPerformed
+		event.changeCompetitionNumShots(-10);
+    }//GEN-LAST:event_btnShotsMinusTenActionPerformed
+
+    private void btnShotsPlusTenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShotsPlusTenActionPerformed
+		event.changeCompetitionNumShots(+10);
+    }//GEN-LAST:event_btnShotsPlusTenActionPerformed
+
 	public static void main(String args[]) {
 		/* Set the Nimbus look and feel */
 		//<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -616,6 +649,8 @@ public class GUI_dev extends javax.swing.JFrame {
     public javax.swing.JTextField apiKey;
     public javax.swing.JTextField apiUrl;
     public javax.swing.JButton btnSaveSettings;
+    public javax.swing.JButton btnShotsMinusTen;
+    public javax.swing.JButton btnShotsPlusTen;
     public javax.swing.JButton btnTimeMinusOne;
     public javax.swing.JButton btnTimeMinusTen;
     public javax.swing.JButton btnTimePlusOne;

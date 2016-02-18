@@ -31,16 +31,10 @@ import org.apache.commons.lang3.StringUtils;
 
 public class EventHandler {
 
+	private final List<Component> disabledComponents = new ArrayList<>();
 	private final GUI_dev gui;
 	private final App app = App.get();
 	private Timer timer;
-	private final TimerTask competitionTimeUpdater = new TimerTask() {
-		@Override
-		public void run() {
-			int time = getCompetitionUploadTime();
-			setCompetitionUploadTime(time - 1);
-		}
-	};
 
 	public EventHandler(GUI_dev gui) {
 		this.gui = gui;
@@ -61,7 +55,6 @@ public class EventHandler {
 		});
 
 		applicationStoppedUploading();
-		applicationStartedUploading();
 		blockForm();
 	}
 
@@ -72,8 +65,6 @@ public class EventHandler {
 				runnable.run();
 			}
 		}.start();
-
-		//SwingUtilities.invokeLater(runnable);
 	}
 
 	public void changeCompetitionUploadTime(int change) {
@@ -82,6 +73,12 @@ public class EventHandler {
 		int newTimeRounded = (int) Math.floor(newTime / 60) * 60;
 
 		setCompetitionUploadTime(newTimeRounded);
+	}
+
+	public void changeCompetitionNumShots(int change) {
+		int oldNumShots = Integer.parseInt(gui.competitionNumShots.getText());
+		int newNumShots = oldNumShots + change;
+		gui.competitionNumShots.setText(newNumShots + "");
 	}
 
 	public void saveSettingsButtonPressed() {
@@ -187,7 +184,7 @@ public class EventHandler {
 	}
 
 	public void stopCompetitionUploadButtonPressed() {
-		//TODO
+		app.stopCompetitionUpload();
 	}
 
 	private void showInfoPopup(String message) {
@@ -207,21 +204,27 @@ public class EventHandler {
 	}
 
 	private void applicationStartedUploading() {
-		gui.startCompetitionUploadButton.setVisible(false);
-		gui.stopCompetitionUploadButton.setVisible(true);
+		gui.startCompetitionUploadButton.setEnabled(false);
+		gui.stopCompetitionUploadButton.setEnabled(true);
 		startUploadTimer();
 	}
 
 	private void applicationStoppedUploading() {
-		gui.startCompetitionUploadButton.setVisible(true);
-		gui.stopCompetitionUploadButton.setVisible(false);
+		gui.startCompetitionUploadButton.setEnabled(true);
+		gui.stopCompetitionUploadButton.setEnabled(false);
 		stopUploadTimer();
 	}
 
 	private void startUploadTimer() {
 		if (timer == null) {
 			timer = new Timer();
-			timer.scheduleAtFixedRate(competitionTimeUpdater, 0L, 1000L);
+			timer.scheduleAtFixedRate(new TimerTask() {
+				@Override
+				public void run() {
+					int time = getCompetitionUploadTime();
+					setCompetitionUploadTime(time - 1);
+				}
+			}, 0L, 1000L);
 		}
 	}
 
@@ -359,20 +362,47 @@ public class EventHandler {
 	}
 
 	private void blockForm() {
-		changeContainerVisibility(gui, false);
+		saveDisabledElements(gui);
+		changeContainerEnabledState(gui, false);
 	}
 
 	private void unblockForm() {
-		changeContainerVisibility(gui, true);
+		changeContainerEnabledState(gui, true);
+		restoreDisabledElements(gui);
+	}
+	
+	private void saveDisabledElements(Container container) {
+		if (container.equals(gui)) {
+			disabledComponents.clear();
+		}
+
+		for (Component component : container.getComponents()) {
+			if (component instanceof Container) {
+				saveDisabledElements((Container) component);
+			}
+			if (!component.isEnabled()) {
+				disabledComponents.add(component);
+			}
+		}
 	}
 
-	private void changeContainerVisibility(Container rootComponent, boolean visible) {
-		for (Component component : rootComponent.getComponents()) {
+	private void restoreDisabledElements(Container container) {
+		for (Component component : container.getComponents()) {
 			if (component instanceof Container) {
-				changeContainerVisibility((Container) component, visible);
+				restoreDisabledElements((Container) component);
 			}
+			if (disabledComponents.contains(component)) {
+				component.setEnabled(false);
+			}
+		}
+	}
 
-			component.setEnabled(visible);
+	private void changeContainerEnabledState(Container container, boolean isEnabled) {
+		for (Component component : container.getComponents()) {
+			if (component instanceof Container) {
+				changeContainerEnabledState((Container) component, isEnabled);
+			}
+			component.setEnabled(isEnabled);
 		}
 	}
 }

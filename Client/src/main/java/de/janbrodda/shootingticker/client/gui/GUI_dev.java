@@ -5,8 +5,6 @@
  */
 package de.janbrodda.shootingticker.client.gui;
 
-import javax.swing.JPanel;
-
 /**
  *
  * @author broddaja
@@ -31,6 +29,7 @@ public class GUI_dev extends javax.swing.JFrame {
 		competitionTimeMinutes.setEditable(false);
 		competitionNumShots.setEditable(false);
 		competitionTimeSeconds.setEditable(false);
+		competitionBasePath.setEditable(false);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -92,7 +91,7 @@ public class GUI_dev extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         proxyHost = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        changeLocalPathButton = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         btnSaveSettings = new javax.swing.JButton();
@@ -517,7 +516,12 @@ public class GUI_dev extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         settingsPanel.add(proxyHost, gridBagConstraints);
 
-        jButton1.setText("Ändern");
+        changeLocalPathButton.setText("Ändern");
+        changeLocalPathButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                changeLocalPathButtonActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 10;
         gridBagConstraints.gridy = 2;
@@ -525,7 +529,7 @@ public class GUI_dev extends javax.swing.JFrame {
         gridBagConstraints.ipadx = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         gridBagConstraints.weightx = 0.1;
-        settingsPanel.add(jButton1, gridBagConstraints);
+        settingsPanel.add(changeLocalPathButton, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
@@ -568,8 +572,7 @@ public class GUI_dev extends javax.swing.JFrame {
     }//GEN-LAST:event_createCompetitionButtonActionPerformed
 
     private void mainContentTabStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_mainContentTabStateChanged
-		JPanel activePanel = (JPanel) mainContentTab.getSelectedComponent();
-		event.selectedTabChanged(activePanel);
+		event.selectedTabChanged();
     }//GEN-LAST:event_mainContentTabStateChanged
 
     private void useProxyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_useProxyActionPerformed
@@ -613,6 +616,10 @@ public class GUI_dev extends javax.swing.JFrame {
 		event.changeCompetitionNumShots(+10);
     }//GEN-LAST:event_btnShotsPlusTenActionPerformed
 
+    private void changeLocalPathButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeLocalPathButtonActionPerformed
+        event.changeLocalPathButtonPressed();
+    }//GEN-LAST:event_changeLocalPathButtonActionPerformed
+
 	public static void main(String args[]) {
 		/* Set the Nimbus look and feel */
 		//<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -655,12 +662,12 @@ public class GUI_dev extends javax.swing.JFrame {
     public javax.swing.JButton btnTimeMinusTen;
     public javax.swing.JButton btnTimePlusOne;
     public javax.swing.JButton btnTimePlusTen;
+    public javax.swing.JButton changeLocalPathButton;
     public javax.swing.JTextField competitionBasePath;
     public javax.swing.JTextField competitionNumShots;
     public javax.swing.JTextField competitionTimeMinutes;
     public javax.swing.JTextField competitionTimeSeconds;
     public javax.swing.JButton createCompetitionButton;
-    public javax.swing.JButton jButton1;
     public javax.swing.JLabel jLabel1;
     public javax.swing.JLabel jLabel10;
     public javax.swing.JLabel jLabel11;

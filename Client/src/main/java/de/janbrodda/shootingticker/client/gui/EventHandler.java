@@ -22,6 +22,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -34,6 +35,7 @@ public class EventHandler {
 	private final List<Component> disabledComponents = new ArrayList<>();
 	private final GUI_dev gui;
 	private final App app = App.get();
+	private final Settings settings = Settings.get();
 	private Timer timer;
 
 	public EventHandler(GUI_dev gui) {
@@ -53,6 +55,8 @@ public class EventHandler {
 				applicationStoppedUploading();
 			}
 		});
+		
+		gui.setTitle("ShootingTicker");
 
 		applicationStoppedUploading();
 		blockForm();
@@ -103,6 +107,19 @@ public class EventHandler {
 		}
 	}
 
+	public void changeLocalPathButtonPressed() {
+		JFileChooser fileChooser = new JFileChooser();
+		fileChooser.setDialogTitle("Select local Competition Export Folder");
+		fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		fileChooser.setMultiSelectionEnabled(false);
+		int dialogResult = fileChooser.showOpenDialog(gui);
+		if (dialogResult == JFileChooser.APPROVE_OPTION) {
+			settings.competitionBasePath = fileChooser.getSelectedFile().getAbsolutePath();
+			settings.save();
+		}
+		selectedTabChanged();
+	}
+
 	public void createCompetitionButtonPressed() {
 		int year = Integer.parseInt(gui.newCompetitionDateYearField.getText());
 		int month = Integer.parseInt(gui.newCompetitionDateMonthField.getText());
@@ -123,7 +140,7 @@ public class EventHandler {
 			public void run() {
 				try {
 					app.saveCompetition(competition);
-					selectedTabChanged(gui.managePanel);
+					selectedTabChanged();
 				} catch (IOException ex) {
 					Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
 					showWarningPopup("Can't send Competition to Server");
@@ -132,10 +149,11 @@ public class EventHandler {
 		});
 	}
 
-	public void selectedTabChanged(final JPanel activePanel) {
+	public void selectedTabChanged() {
 		invokeLater(new Runnable() {
 			@Override
 			public void run() {
+				JPanel activePanel = (JPanel) gui.mainContentTab.getSelectedComponent();
 
 				if (activePanel == gui.managePanel) {
 					blockForm();
@@ -323,7 +341,7 @@ public class EventHandler {
 					if (deleteConfirmed) {
 						try {
 							app.deleteCompetition(competition);
-							selectedTabChanged(gui.managePanel);
+							selectedTabChanged();
 
 						} catch (IOException ex) {
 							Logger.getLogger(GUI.class
@@ -370,7 +388,7 @@ public class EventHandler {
 		changeContainerEnabledState(gui, true);
 		restoreDisabledElements(gui);
 	}
-	
+
 	private void saveDisabledElements(Container container) {
 		if (container.equals(gui)) {
 			disabledComponents.clear();
